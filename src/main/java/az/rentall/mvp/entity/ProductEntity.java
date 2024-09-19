@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -42,4 +43,8 @@ public class ProductEntity {
 
     @Column(name = "listing type", nullable = true, unique = false)
     Long listingType;
+
+
+    @OneToMany(mappedBy = "product", orphanRemoval = true)
+    private List<ProdImages> images;
 }
