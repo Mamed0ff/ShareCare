@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -41,5 +42,9 @@ public class ProductEntity {
     private Long ownerId;
 
     @Column(name = "listing type", nullable = true, unique = false)
-    private Long listingType;
+    Long listingType;
+
+
+    @OneToMany(mappedBy = "product", orphanRemoval = true)
+    private List<ProdImages> images;
 }
