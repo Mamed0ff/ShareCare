@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,14 +19,17 @@ import java.time.LocalDateTime;
 public class CategoriesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(name = "name", nullable = false, unique = false)
-    private String name;
+    String name;
 
     @Column(name = "description", nullable = false, unique = false)
-    private String description;
+    String description;
 
     @Column(name = "created at", nullable = true, unique = false)
-    private LocalDateTime created_at;
+    LocalDateTime created_at;
+
+    @OneToMany(mappedBy = "category")
+    private List<Faqs> faqs;
 }
