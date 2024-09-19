@@ -18,32 +18,35 @@ import java.util.List;
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(name = "name", nullable = false, unique = false)
-    String name;
+    private String name;
 
     @Column(name = "description", nullable = false, unique = false)
-    String description;
+    private String description;
 
-    @Column(name = "location", nullable = true, unique = false)
-    String location;
+    @Column(name = "location", nullable = false, unique = false)
+    private String location;
 
-    @Column(name = "availibility start", nullable = true, unique = false)
-    LocalDateTime availibility_start;
+    @Column(name = "availibility start", nullable = false, unique = false)
+    private LocalDateTime availibility_start;
 
-    @Column(name = "availibility end", nullable = true, unique = false)
-    LocalDateTime availibility_end;
+    @Column(name = "availibility end", nullable = false, unique = false)
+    private LocalDateTime availibility_end;
 
-    @Column(name = "category id", nullable = true, unique = false)
-    Long categoryId;
 
-    @Column(name = "owner id", nullable = true, unique = false)
-    Long ownerId;
+    @Column(name = "owner id", nullable = false, unique = true)
+    private Long ownerId;
 
-    @Column(name = "listing type", nullable = true, unique = false)
-    Long listingType;
+    @Column(name = "listing type", nullable = false, unique = false)
+    private Long listingType;
 
+
+
+    @ManyToOne
+    @Column(name = "category", nullable = false, unique = false)
+    private CategoriesEntity category;
 
     @OneToMany(mappedBy = "product", orphanRemoval = true)
     private List<ProdImages> images;
