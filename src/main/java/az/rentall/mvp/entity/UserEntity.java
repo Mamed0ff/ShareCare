@@ -20,34 +20,34 @@ public class UserEntity {
     Long id;
 
     @Column(name = "name", nullable = false, unique = false)
-    String name;
+    private String name;
 
     @Column(name = "surname", nullable = false, unique = false)
-    String surname;
+    private String surname;
 
     @Column(name = "username", nullable = false, unique = true)
-    String username;
+    private String username;
 
     @Column(name = "gmail", nullable = false, unique = true)
-    String gmail;
+    private String gmail;
 
     @Column(name = "password", nullable = false, unique = false)
-    String password;
+    private String password;
 
     @Column(name = "phone number", nullable = false, unique = true)
-    String phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "user role", nullable = false, unique = false)
-    String userRole;
+    private String userRole;
 
     @Column(name = "created at", nullable = false, unique = false)
-    LocalDateTime created_at;
+    private LocalDateTime created_at;
 
     @Column(name = "updated at", nullable = false, unique = false)
-    LocalDateTime updated_at;
+    private LocalDateTime updated_at;
 
     @Column(name = "profile image", nullable = false, unique = false)
-    byte[] profileImage; // Assuming you're using a BLOB or similar data type
+    private byte[] profileImage; // Assuming you're using a BLOB or similar data type
 
     @Column(name = "uploaded_at", nullable = true, unique = false)
     private LocalDateTime uploaded_at;

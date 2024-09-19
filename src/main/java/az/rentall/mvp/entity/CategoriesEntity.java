@@ -18,14 +18,14 @@ import java.time.LocalDateTime;
 public class CategoriesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(name = "name", nullable = false, unique = false)
-    String name;
+    private String name;
 
     @Column(name = "description", nullable = false, unique = false)
-    String description;
+    private String description;
 
     @Column(name = "created at", nullable = true, unique = false)
-    LocalDateTime created_at;
+    private LocalDateTime created_at;
 }
