@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,26 +21,30 @@ public class ProductEntity {
     Long id;
 
     @Column(name = "name", nullable = false, unique = false)
-    private String name;
+    String name;
 
     @Column(name = "description", nullable = false, unique = false)
-    private String description;
+    String description;
 
     @Column(name = "location", nullable = true, unique = false)
-    private String location;
+    String location;
 
     @Column(name = "availibility start", nullable = true, unique = false)
-    private LocalDateTime availibility_start;
+    LocalDateTime availibility_start;
 
     @Column(name = "availibility end", nullable = true, unique = false)
-    private LocalDateTime availibility_end;
+    LocalDateTime availibility_end;
 
     @Column(name = "category id", nullable = true, unique = false)
-    private Long categoryId;
+    Long categoryId;
 
     @Column(name = "owner id", nullable = true, unique = false)
-    private Long ownerId;
+    Long ownerId;
 
     @Column(name = "listing type", nullable = true, unique = false)
-    private Long listingType;
+    Long listingType;
+
+
+    @OneToMany(mappedBy = "product", orphanRemoval = true)
+    private List<ProdImages> images;
 }
