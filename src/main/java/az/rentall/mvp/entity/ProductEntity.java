@@ -21,25 +21,25 @@ public class ProductEntity {
     Long id;
 
     @Column(name = "name", nullable = false, unique = false)
-    String name;
+    private String name;
 
     @Column(name = "description", nullable = false, unique = false)
-    String description;
+    private String description;
 
     @Column(name = "location", nullable = true, unique = false)
-    String location;
+    private String location;
 
     @Column(name = "availibility start", nullable = true, unique = false)
-    LocalDateTime availibility_start;
+    private LocalDateTime availibility_start;
 
     @Column(name = "availibility end", nullable = true, unique = false)
-    LocalDateTime availibility_end;
+    private LocalDateTime availibility_end;
 
     @Column(name = "category id", nullable = true, unique = false)
-    Long categoryId;
+    private Long categoryId;
 
     @Column(name = "owner id", nullable = true, unique = false)
-    Long ownerId;
+    private Long ownerId;
 
     @Column(name = "listing type", nullable = true, unique = false)
     Long listingType;
