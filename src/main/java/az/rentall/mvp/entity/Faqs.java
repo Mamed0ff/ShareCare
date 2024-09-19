@@ -22,7 +22,7 @@ public class Faqs {
     LocalDate createdDate;
     LocalDate updatedDate;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "CategoriesEntity_id", referencedColumnName = "id")
     CategoriesEntity category;
 }

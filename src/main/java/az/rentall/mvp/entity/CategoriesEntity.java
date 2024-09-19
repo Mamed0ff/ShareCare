@@ -27,9 +27,12 @@ public class CategoriesEntity {
     @Column(name = "description", nullable = false, unique = false)
     String description;
 
-    @Column(name = "created at", nullable = true, unique = false)
+    @Column(name = "created at", nullable = false, unique = false)
     LocalDateTime created_at;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany (cascade = CascadeType.MERGE, mappedBy = "category")
     private List<Faqs> faqs;
+
+    @OneToMany (mappedBy = "category")
+    private List<ProductEntity> products;
 }
