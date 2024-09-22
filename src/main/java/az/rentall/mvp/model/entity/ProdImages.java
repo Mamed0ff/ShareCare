@@ -21,7 +21,7 @@ public class ProdImages {
     private LocalDate updateDate;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "ProductEntity_id", referencedColumnName = "id")
     private ProductEntity product;
 }
