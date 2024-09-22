@@ -27,9 +27,9 @@ public class ProductEntity {
     @ManyToOne
     private UserEntity owner;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private CategoriesEntity category;
 
-    @OneToMany(mappedBy = "product", orphanRemoval = true)
+    @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST ,orphanRemoval = true)
     private List<ProdImages> images;
 }
