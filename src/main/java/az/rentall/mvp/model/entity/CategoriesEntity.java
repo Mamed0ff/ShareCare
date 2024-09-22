@@ -1,4 +1,4 @@
-package az.rentall.mvp.entity;
+package az.rentall.mvp.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,22 +15,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "categories")
-
 public class CategoriesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    @Column(name = "name", nullable = false, unique = false)
-    String name;
+    private String name;
 
-    @Column(name = "description", nullable = false, unique = false)
-    String description;
+    private String description;
 
-    @Column(name = "created at", nullable = false, unique = false)
-    LocalDateTime created_at;
+    private LocalDateTime created_at;
+    private LocalDateTime updated_at;
 
-    @OneToMany (cascade = CascadeType.MERGE, mappedBy = "category")
+    //relationships
+    @OneToMany (mappedBy = "category", cascade = CascadeType.PERSIST)
     private List<Faqs> faqs;
 
     @OneToMany (mappedBy = "category")
