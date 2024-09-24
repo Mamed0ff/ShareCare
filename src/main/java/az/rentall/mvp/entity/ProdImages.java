@@ -19,7 +19,7 @@ public class ProdImages {
     Long id;
     String path;
     LocalDate uploadDate;
-    LocalDate ubdateDate;
+    LocalDate updateDate;
 
 
     @ManyToOne
