@@ -1,4 +1,4 @@
-package az.rentall.mvp.entity;
+package az.rentall.mvp.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,17 +12,16 @@ import java.time.LocalDate;
 @Table(name = "faqs")
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Faqs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    String question;
-    String answer;
-    LocalDate createdDate;
-    LocalDate updatedDate;
+    private String question;
+    private String answer;
+    private LocalDate createdDate;
+    private LocalDate updatedDate;
 
     @ManyToOne
     @JoinColumn(name = "CategoriesEntity_id", referencedColumnName = "id")
-    CategoriesEntity category;
+    private CategoriesEntity category;
 }
