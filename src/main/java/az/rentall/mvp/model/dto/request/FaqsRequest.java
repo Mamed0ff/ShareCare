@@ -2,6 +2,7 @@ package az.rentall.mvp.model.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class FaqsRequest {
     @NotBlank(message = "Answer cannot be empty")
     private String answer;
 
-    @NotNull(message = "category must be selected")
+    @NotNull(message = "Category ID cannot be null")
+    @Positive(message = "Category ID must be a positive number")
     private Long categoryId;
 }

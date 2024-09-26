@@ -3,6 +3,7 @@ package az.rentall.mvp.model.entity;
 import az.rentall.mvp.model.Enums.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,43 +15,46 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table (name = "users")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    private String name;
+    String name;
 
-    private String surname;
-
-    @Column(nullable = false, unique = true)
-    private String username;
+    String surname;
 
     @Column(nullable = false, unique = true)
-    private String gmail;
+    String username;
 
-    private String password;
+    @Column(nullable = false, unique = true)
+    String gmail;
 
-    private String phoneNumber;
+    String password;
 
-    private LocalDateTime created_at;
+    String phoneNumber;
 
-    private LocalDateTime updated_at;
+    LocalDateTime created_at;
 
-    private String profileImage; // Saving path here, actual picture will be stored in images folder
+    LocalDateTime updated_at;
 
-    private LocalDateTime uploaded_at;
+    String profileImage; // Saving path here, actual picture will be stored in images folder
 
-    private String token;
+    LocalDateTime uploaded_at;
+
+    String token;
+
+    Boolean isVerified;
 
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
-    private RoleType roleType;
+    RoleType roleType;
 
     @OneToMany(mappedBy = "owner",cascade = CascadeType.REMOVE,orphanRemoval = true)
-    private List<ProductEntity> products;
+    List<ProductEntity> products;
 
     @OneToOne(cascade = CascadeType.PERSIST,mappedBy = "user",orphanRemoval = true)
-    private UserCabinet cabinet;
+    UserCabinet cabinet;
 }
