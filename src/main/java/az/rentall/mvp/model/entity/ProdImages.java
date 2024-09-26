@@ -17,6 +17,7 @@ public class ProdImages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String path;
+    private Boolean status;
     private LocalDate uploadDate;
     private LocalDate updateDate;
 
@@ -24,4 +25,9 @@ public class ProdImages {
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "ProductEntity_id", referencedColumnName = "id")
     private ProductEntity product;
+
+    @PrePersist
+    protected void autoFill() {
+        this.status=true;
+    }
 }
