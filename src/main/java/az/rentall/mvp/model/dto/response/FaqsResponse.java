@@ -13,5 +13,5 @@ public class FaqsResponse {
     private String answer;
     private LocalDate createdDate;
     private LocalDate updatedDate;
-    private String category;
+    private Long categoryId;
 }

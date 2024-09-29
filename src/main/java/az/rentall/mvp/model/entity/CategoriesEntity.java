@@ -19,13 +19,11 @@ public class CategoriesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private String description;
-
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
+    private Integer prodCount;
 
     //relationships
     @OneToMany (mappedBy = "category", cascade = CascadeType.PERSIST)
@@ -33,4 +31,9 @@ public class CategoriesEntity {
 
     @OneToMany (mappedBy = "category")
     private List<ProductEntity> products;
+
+    @PrePersist
+    private void autoFill(){
+        this.prodCount=0;
+    }
 }

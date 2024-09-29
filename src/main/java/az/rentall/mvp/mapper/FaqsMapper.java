@@ -14,5 +14,7 @@ public interface FaqsMapper {
     @Mapping(target = "category.id", source = "categoryId")
     Faqs requestToEntity(FaqsRequest faqsRequest);
 
+
+    @Mapping(target = "categoryId", source = "category.id")
     FaqsResponse entityToResponse(Faqs faqs);
 }

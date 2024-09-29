@@ -2,9 +2,7 @@ package az.rentall.mvp.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -32,5 +30,5 @@ public class ProductEntity {
     private CategoriesEntity category;
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST ,orphanRemoval = true)
-    private List<ProdImages> images;
+    private List<ProductImages> images;
 }

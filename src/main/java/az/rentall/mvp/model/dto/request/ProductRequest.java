@@ -1,7 +1,7 @@
 package az.rentall.mvp.model.dto.request;
 
 import az.rentall.mvp.model.entity.CategoriesEntity;
-import az.rentall.mvp.model.entity.ProdImages;
+import az.rentall.mvp.model.entity.ProductImages;
 import az.rentall.mvp.model.entity.UserEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,5 +33,5 @@ public class ProductRequest {
     CategoriesEntity category;
 
     @NotNull
-    List<ProdImages> images;
+    List<ProductImages> images;
 }
