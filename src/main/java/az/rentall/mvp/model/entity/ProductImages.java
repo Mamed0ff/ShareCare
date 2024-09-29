@@ -2,7 +2,6 @@ package az.rentall.mvp.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
@@ -12,12 +11,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "prod_images")
-public class ProdImages {
+public class ProductImages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String path;
     private Boolean status;
+    private Boolean main;
     private LocalDate uploadDate;
     private LocalDate updateDate;
 
