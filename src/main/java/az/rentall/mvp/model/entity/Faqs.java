@@ -18,10 +18,16 @@ public class Faqs {
     private Long id;
     private String question;
     private String answer;
+    private Boolean isAnswered;
     private LocalDate createdDate;
     private LocalDate updatedDate;
 
     @ManyToOne
     @JoinColumn(name = "CategoriesEntity_id", referencedColumnName = "id")
     private CategoriesEntity category;
+
+    @PrePersist
+    protected void autoFill(){
+        this.isAnswered=false;
+    }
 }
