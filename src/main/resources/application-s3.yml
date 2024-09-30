@@ -1,0 +1,12 @@
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAQ4J5X345R5F6Q644
+      secret-key: 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
+    region:
+      static: eu-north-1
+    stack:
+      auto: false
+    s3:
+      bucket:
+        name: productimages-0
