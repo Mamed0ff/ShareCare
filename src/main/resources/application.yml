@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    include:
+      - db
+      - s3
+      - mail
+      - file-upload
+      - security
