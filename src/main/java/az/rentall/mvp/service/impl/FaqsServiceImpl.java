@@ -49,4 +49,11 @@ public class FaqsServiceImpl implements FaqsService {
         Faqs foundFaq = faqsRepository.findById(faqId).orElseThrow(()->new NotFoundException("Faq not found with id: "+faqId));
         faqsRepository.delete(foundFaq);
     }
+
+    @Override
+    public FaqsResponse getFaqById(Long id) {
+        Faqs faq = faqsRepository.findById(id).orElseThrow(()->new NotFoundException("Faq did not found with id: "+id));
+        return FaqsMapper.INSTANCE.entityToResponse(faq);
+
+    }
 }
