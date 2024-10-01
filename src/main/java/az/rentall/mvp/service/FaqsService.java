@@ -10,4 +10,5 @@ public interface FaqsService {
     public FaqsResponse updateFaq(FaqsRequest request, Long faqId);
     public List<FaqsResponse> getAllFaqs();
     public void deleteFaq(Long faqId);
+    public FaqsResponse getFaqById(Long id);
 }

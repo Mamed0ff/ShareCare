@@ -11,6 +11,7 @@ public class FaqsResponse {
     private Long id;
     private String question;
     private String answer;
+    private Boolean isAnswered;
     private LocalDate createdDate;
     private LocalDate updatedDate;
     private Long categoryId;
