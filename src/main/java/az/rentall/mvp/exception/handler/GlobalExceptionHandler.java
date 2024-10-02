@@ -1,9 +1,6 @@
 package az.rentall.mvp.exception.handler;
 
-import az.rentall.mvp.exception.AlreadyExistsException;
-import az.rentall.mvp.exception.DeletionException;
-import az.rentall.mvp.exception.FileUploadException;
-import az.rentall.mvp.exception.UnauthorizedAccesException;
+import az.rentall.mvp.exception.*;
 import az.rentall.mvp.model.dto.response.exception.ErrorResponseDto;
 import az.rentall.mvp.model.dto.response.exception.FieldErrorResponse;
 import az.rentall.mvp.model.dto.response.exception.ValidationExceptionResponse;
@@ -40,6 +37,11 @@ public class GlobalExceptionHandler {
                         "NOT_FOUND",
                         LocalDateTime.now()));
 
+    }
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ErrorResponseDto handleNotFoundException(NotFoundException exception) {
+        return buildExceptionResponse(exception.getMessage(), NOT_FOUND.value(), "NOT_FOUND");
     }
 
     @ExceptionHandler(FileUploadException.class)
