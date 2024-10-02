@@ -1,14 +1,22 @@
 package az.rentall.mvp.model.dto.response;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import az.rentall.mvp.model.entity.Faqs;
+import az.rentall.mvp.model.entity.ProductEntity;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Setter
-@Getter
+import java.util.List;
+
+@Data
+@Builder
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryResponse {
-    private Long id;
     private String name;
     private String description;
-    private Integer prodCount;
+
+    List<Faqs> faqs;
+    List<ProductEntity> products;
 }
