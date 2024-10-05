@@ -1,6 +1,10 @@
 package az.rentall.mvp.model.dto.request;
 
 import az.rentall.mvp.model.Enums.RoleType;
+import az.rentall.mvp.util.annotation.ValidEmail;
+import az.rentall.mvp.util.annotation.ValidImages;
+import az.rentall.mvp.util.annotation.ValidPassword;
+import az.rentall.mvp.util.annotation.ValidPhoneNumber;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,15 +32,19 @@ public class UserRequest {
     String username;
 
     @NotBlank
+    @ValidEmail
     String gmail;
 
     @NotBlank
+    @ValidPassword
     String password;
 
     @NotBlank
+    @ValidPhoneNumber
     String phoneNumber;
 
     @NotBlank
+    @ValidImages
     String profileImage; // Saving path here, actual picture will be stored in images folder
 
     @NotBlank
