@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -27,13 +28,17 @@ public class FaqsServiceImpl implements FaqsService {
     @Override
     public void createFaq(FaqsRequest request) {
         CategoriesEntity category = categoriesRepository.findById(request.getCategoryId()).orElseThrow(()->new NotFoundException("Cannot find category with id:"+request.getCategoryId()));
-        faqsRepository.save(FaqsMapper.INSTANCE.requestToEntity(request));
+
+        Faqs faq= FaqsMapper.INSTANCE.requestToEntity(request);
+        faq.setCreatedDate(LocalDate.now());
+        faqsRepository.save(faq);
     }
 
     @Override
     public FaqsResponse updateFaq(FaqsRequest request, Long faqId) {
         Faqs foundFaq = faqsRepository.findById(faqId).orElseThrow(()->new NotFoundException("Faq not found with id: "+faqId));
         FaqsMapper.INSTANCE.mapRequestToEntity(foundFaq,request);
+        foundFaq.setUpdatedDate(LocalDate.now());
         faqsRepository.save(foundFaq);
         return FaqsMapper.INSTANCE.entityToResponse(foundFaq);
     }
