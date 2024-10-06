@@ -1,0 +1,12 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: nasib.shirinovv@gmail.com
+    password: ehyw kivi zlrv ski
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
