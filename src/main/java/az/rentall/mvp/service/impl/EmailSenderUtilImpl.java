@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class EmailSenderUtilImpl implements EmailSenderUtil {
+
     private final JavaMailSender javaMailSender;
 
     @Override

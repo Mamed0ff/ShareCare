@@ -10,4 +10,5 @@ public interface ProductService {
     ProductResponse findById(Long id);
     List<ProductResponse> findAllProducts();
     void updateProduct(ProductRequest productRequest, Long id);
+    List<ProductResponse> searchProductsByName(String name);
 }

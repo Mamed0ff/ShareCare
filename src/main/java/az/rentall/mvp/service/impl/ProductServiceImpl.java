@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +45,15 @@ public class ProductServiceImpl implements ProductService {
         ProductEntity productEntity = productMapper.toEntity(productRequest);
         productEntity.setId(id);
         productRepository.save(productEntity);
+    }
+
+    @Override
+    public List<ProductResponse> searchProductsByName(String name) {
+        if(name.isBlank() || name.isEmpty()){
+            throw new NullPointerException("You cant search null value");
+        }
+        List<ProductEntity> products = productRepository.searchProductsByName(name);
+        List<ProductResponse> responses = products.stream().map(product->productMapper.toResponseDto(product)).collect(Collectors.toList());
+        return responses;
     }
 }

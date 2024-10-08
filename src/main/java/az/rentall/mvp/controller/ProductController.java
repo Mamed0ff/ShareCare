@@ -37,4 +37,9 @@ public class ProductController {
     public void updateProduct (@RequestBody ProductRequest productRequest, @PathVariable Long id){
         productService.updateProduct(productRequest, id);
     }
+
+    @GetMapping
+    public List<ProductResponse> searchProductsByName(@RequestParam("name") String name){
+        return productService.searchProductsByName(name);
+    }
 }
