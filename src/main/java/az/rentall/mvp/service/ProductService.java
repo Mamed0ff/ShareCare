@@ -12,4 +12,5 @@ public interface ProductService {
     ProductResponse findById(Long id);
     Page<ProductResponse> findAllProducts(Pageable pageable);
     void updateProduct(ProductRequest productRequest, Long id);
+    List<ProductResponse> searchProductsByName(String name);
 }

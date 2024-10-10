@@ -46,4 +46,9 @@ public class ProductController {
                                @RequestPart("images") @ValidImages List<MultipartFile> images, @PathVariable Long id){
         productService.updateProduct(productRequest, id);
     }
+
+    @GetMapping
+    public List<ProductResponse> searchProductsByName(@RequestParam("name") String name){
+        return productService.searchProductsByName(name);
+    }
 }
