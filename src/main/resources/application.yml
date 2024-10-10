@@ -1,3 +1,8 @@
+server:
+  port: 8200
+  servlet:
+    context-path: /rentall-app
+
 spring:
   profiles:
     include:
