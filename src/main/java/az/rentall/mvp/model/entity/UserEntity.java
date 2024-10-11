@@ -52,8 +52,8 @@ public class UserEntity {
     @Column(nullable = false)
     RoleType roleType;
 
-    @OneToMany(mappedBy = "owner",cascade = CascadeType.REMOVE,orphanRemoval = true)
-    List<ProductEntity> products;
+//    @OneToMany(mappedBy = "owner",cascade = CascadeType.REMOVE,orphanRemoval = true)
+//    List<ProductEntity> products;
 
     @OneToOne(cascade = CascadeType.PERSIST,mappedBy = "user",orphanRemoval = true)
     UserCabinet cabinet;

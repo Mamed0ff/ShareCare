@@ -1,5 +1,6 @@
 package az.rentall.mvp.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -22,6 +23,7 @@ public class Faqs {
     private LocalDate createdDate;
     private LocalDate updatedDate;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "CategoriesEntity_id", referencedColumnName = "id")
     private CategoriesEntity category;

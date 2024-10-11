@@ -20,5 +20,5 @@ public @interface ValidImages {
     long maxSize() default 5 * 1024 * 1024;
     int minCount() default 1;
     int maxCount() default 10;
-    String[] allowedFormats() default {"images/jpeg", "images/png", "images/jpg"};
+    String[] allowedFormats() default {"image/jpeg", "image/png", "image/jpg"};
 }

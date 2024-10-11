@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "categories")
 public class CategoriesEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,11 +27,11 @@ public class CategoriesEntity {
     private Integer prodCount;
 
     //relationships
-    @OneToMany (mappedBy = "category", cascade = CascadeType.PERSIST)
-    private List<Faqs> faqs;
-
-    @OneToMany (mappedBy = "category")
-    private List<ProductEntity> products;
+//    @OneToMany (mappedBy = "category", cascade = CascadeType.PERSIST)
+//    private List<Faqs> faqs;
+//
+//    @OneToMany (mappedBy = "category")
+//    private List<ProductEntity> products;
 
     @PrePersist
     private void autoFill(){

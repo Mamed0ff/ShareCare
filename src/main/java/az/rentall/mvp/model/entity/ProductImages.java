@@ -1,5 +1,6 @@
 package az.rentall.mvp.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class ProductImages {
     private LocalDate updateDate;
 
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "ProductEntity_id", referencedColumnName = "id")
     private ProductEntity product;

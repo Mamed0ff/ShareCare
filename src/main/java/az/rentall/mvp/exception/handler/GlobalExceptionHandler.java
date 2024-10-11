@@ -44,6 +44,12 @@ public class GlobalExceptionHandler {
         return buildExceptionResponse(exception.getMessage(), NOT_FOUND.value(), "NOT_FOUND");
     }
 
+    @ExceptionHandler(ProductNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ErrorResponseDto handleProductNotFoundException(ProductNotFoundException exception) {
+        return buildExceptionResponse(exception.getMessage(), NOT_FOUND.value(), "NOT_FOUND");
+    }
+
     @ExceptionHandler(FileUploadException.class)
     @ResponseStatus(BAD_REQUEST)
     public ErrorResponseDto handleFileUploadException (FileUploadException fileUploadException) {

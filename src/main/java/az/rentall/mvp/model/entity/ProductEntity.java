@@ -1,5 +1,6 @@
 package az.rentall.mvp.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,9 +27,11 @@ public class ProductEntity {
     @ManyToOne
     private UserEntity owner;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.REFRESH)
     private CategoriesEntity category;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST ,orphanRemoval = true)
+    @JsonBackReference
+    @OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE)
     private List<ProductImages> images;
 }
