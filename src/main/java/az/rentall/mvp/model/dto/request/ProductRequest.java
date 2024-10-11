@@ -5,6 +5,7 @@ import az.rentall.mvp.model.entity.ProductImages;
 import az.rentall.mvp.model.entity.UserEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,12 +27,8 @@ public class ProductRequest {
     @NotBlank
     String location;
 
-    @NotNull
-    UserEntity owner;
+    @NotNull(message = "Category ID cannot be null")
+    @Positive(message = "Category ID must be a positive number")
+    private Long categoryId;
 
-    @NotNull
-    CategoriesEntity category;
-
-    @NotNull
-    List<ProductImages> images;
 }
