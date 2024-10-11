@@ -20,10 +20,4 @@ public class CategoryRequest {
 
     @NotBlank
     String description;
-
-    @NotBlank
-    List<Faqs> faqs;
-
-    @NotBlank
-    List<ProductEntity> products;
 }
