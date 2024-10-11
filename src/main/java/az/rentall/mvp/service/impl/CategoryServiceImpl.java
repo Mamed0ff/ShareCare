@@ -1,6 +1,7 @@
 package az.rentall.mvp.service.impl;
 
 
+import az.rentall.mvp.exception.NotFoundException;
 import az.rentall.mvp.exception.ProductNotFoundException;
 import az.rentall.mvp.mapper.CategoryMapper;
 import az.rentall.mvp.mapper.ProductMapper;
@@ -14,6 +15,7 @@ import az.rentall.mvp.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,6 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponse createCategory(CategoryRequest categoryRequest) {
         CategoriesEntity categoriesEntity = categoryMapper.toEntity(categoryRequest);
+        categoriesEntity.setCreated_at(LocalDateTime.now());
         categoriesRepository.save(categoriesEntity);
         return categoryMapper.toResponseDto(categoriesEntity);
     }
@@ -45,8 +48,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void updateCategory(CategoryRequest categoryRequest, Long id) {
-        CategoriesEntity categoriesEntity = categoryMapper.toEntity(categoryRequest);
-        categoriesEntity.setId(id);
-        categoriesRepository.save(categoriesEntity);
+        CategoriesEntity entity = categoriesRepository.findById(id).orElseThrow(()->new NotFoundException("Category is not found with id : "+id));
+        CategoriesEntity updatedEntity = categoryMapper.toEntity(categoryRequest);
+        updatedEntity.setId(entity.getId());
+        categoriesRepository.save(updatedEntity);
     }
+
+    @Override
+    public void deleteCategory(Long id) {
+        CategoriesEntity entity = categoriesRepository.findById(id).orElseThrow(()->new NotFoundException("Category is not found with id : "+id));
+        categoriesRepository.delete(entity);
+    }
+
+
 }

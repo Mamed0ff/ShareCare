@@ -14,9 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryResponse {
+
     private String name;
     private String description;
 
-    List<Faqs> faqs;
-    List<ProductEntity> products;
 }
