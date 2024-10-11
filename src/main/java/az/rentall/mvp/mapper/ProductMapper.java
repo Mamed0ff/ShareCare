@@ -4,6 +4,7 @@ import az.rentall.mvp.model.dto.request.ProductRequest;
 import az.rentall.mvp.model.dto.response.ProductResponse;
 import az.rentall.mvp.model.entity.ProductEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
@@ -11,6 +12,7 @@ import org.mapstruct.ReportingPolicy;
         unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ProductMapper {
+    @Mapping(target = "category.id", source = "categoryId")
     ProductEntity toEntity(ProductRequest productRequest);
     ProductResponse toResponseDto(ProductEntity productEntity);
 }

@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long>, PagingAndSortingRepository<ProductEntity,Long> {
-    @Query(value = "select * from products where name like %:name%", nativeQuery = true)
+    @Query(value = "select * from products where upper(name) like %:name%", nativeQuery = true)
     public List<ProductEntity> searchProductsByName(String name);
 }

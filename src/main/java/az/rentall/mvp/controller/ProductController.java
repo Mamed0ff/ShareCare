@@ -24,10 +24,10 @@ public class ProductController {
     private final ProductService productService;
 
 
-    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE},produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponse createProduct(@RequestPart("productRequest")  ProductRequest productRequest,
-                                         @RequestPart("images")  List<MultipartFile> images) {
+    public ProductResponse createProduct(@RequestPart("productRequest")  @Valid ProductRequest productRequest,
+                                         @RequestPart("images")   @ValidImages List<MultipartFile> images) {
         return productService.createProduct(productRequest,images);
     }
 
@@ -50,5 +50,10 @@ public class ProductController {
     @GetMapping("/search")
     public List<ProductResponse> searchProductsByName(@RequestParam("name") String name){
         return productService.searchProductsByName(name);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id){
+        productService.deleteProduct(id);
     }
 }

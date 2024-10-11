@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -32,8 +33,10 @@ public class ProductImageServiceImpl implements ProductImageService {
                 .path(amazonS3Service.uploadFile(image))
                 .main(main)
                 .build();
-        productImagesRepository.save(ProductImageMapper.INSTANCE.requestToEntity(request));
-        main = !main;
+        ProductImages entity = ProductImageMapper.INSTANCE.requestToEntity(request);
+        entity.setUploadDate(LocalDate.now());
+        productImagesRepository.save(entity);
+        main = false;
     }
     }
 

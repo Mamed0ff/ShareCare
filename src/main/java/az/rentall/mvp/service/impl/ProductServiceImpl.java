@@ -65,9 +65,15 @@ public class ProductServiceImpl implements ProductService {
         if(name.isBlank() || name.isEmpty()){
             throw new NullPointerException("You cant search null value");
         }
-        List<ProductEntity> products = productRepository.searchProductsByName(name);
+        List<ProductEntity> products = productRepository.searchProductsByName(name.toUpperCase());
         List<ProductResponse> responses = products.stream().map(product->productMapper.toResponseDto(product)).collect(Collectors.toList());
         return responses;
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+        ProductEntity product = productRepository.findById(id).orElseThrow(()->new ProductNotFoundException("Product is not found with id : "+id));
+        productRepository.delete(product);
     }
 
 
