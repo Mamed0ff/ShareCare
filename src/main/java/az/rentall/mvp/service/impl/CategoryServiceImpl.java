@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryResponse findById(Long id) {
         return categoriesRepository.findById(id)
                 .map(categoryMapper :: toResponseDto)
-                .orElseThrow(() -> new ProductNotFoundException("Category is not found by id: " + id));
+                .orElseThrow(() -> new NotFoundException("Category is not found by id: " + id));
     }
 
     @Override

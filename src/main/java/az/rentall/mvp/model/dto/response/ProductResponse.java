@@ -20,6 +20,7 @@ public class ProductResponse {
     String name;
     String description;
     String location;
+    Integer viewCount;
     UserEntity owner;
     CategoriesEntity category;
 

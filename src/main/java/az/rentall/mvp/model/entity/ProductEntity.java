@@ -24,6 +24,8 @@ public class ProductEntity {
 
     private String location;
 
+    private Integer viewCount=1;
+
     @ManyToOne
     private UserEntity owner;
 
@@ -34,4 +36,9 @@ public class ProductEntity {
     @JsonBackReference
     @OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE)
     private List<ProductImages> images;
+
+
+    public void increaseView(){
+        this.viewCount++;
+    }
 }
