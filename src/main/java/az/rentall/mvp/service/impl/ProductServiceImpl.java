@@ -37,9 +37,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse findById(Long id) {
-        return productRepository.findById(id)
-                .map(productMapper :: toResponseDto)
-                .orElseThrow(() -> new ProductNotFoundException("Product is not found by id: " + id));
+
+        ProductEntity entity= productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product is not found by id: " + id));
+        entity.increaseView();
+        productRepository.save(entity);
+        return productMapper.toResponseDto(entity);
     }
 
     @Override
@@ -47,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
         Page<ProductEntity> entities = productRepository.findAll(pageable);
         List<ProductResponse> responses = new ArrayList<>();
         for(ProductEntity entity : entities){
-            responses.add(findById(entity.getId()));
+            responses.add(productMapper.toResponseDto(entity));
         }
         return responses;
     }
