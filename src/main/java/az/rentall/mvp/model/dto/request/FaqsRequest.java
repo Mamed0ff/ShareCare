@@ -19,6 +19,7 @@ public class FaqsRequest {
     @Size(min = 2, max = 255,message = "Question length must be in 2-255 characters")
     private String question;
 
+    @NotNull
     private String answer;
 
     @NotNull(message = "Category ID cannot be null")
