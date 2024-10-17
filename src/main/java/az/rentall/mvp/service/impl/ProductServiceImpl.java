@@ -1,10 +1,12 @@
 package az.rentall.mvp.service.impl;
 
+import az.rentall.mvp.exception.NotFoundException;
 import az.rentall.mvp.exception.ProductNotFoundException;
 import az.rentall.mvp.mapper.ProductMapper;
 import az.rentall.mvp.model.dto.request.ProductRequest;
 import az.rentall.mvp.model.dto.response.ProductResponse;
 import az.rentall.mvp.model.entity.ProductEntity;
+import az.rentall.mvp.repository.CategoriesRepository;
 import az.rentall.mvp.repository.ProductRepository;
 import az.rentall.mvp.service.ProductImageService;
 import az.rentall.mvp.service.ProductService;
@@ -26,9 +28,11 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
     private final ProductRepository productRepository;
     private final ProductImageService imageService;
+    private final CategoriesRepository categoriesRepository;
 
     @Override
     public ProductResponse createProduct(ProductRequest productRequest, List<MultipartFile> images) {
+        categoriesRepository.findById(productRequest.getCategoryId()).orElseThrow(()->new NotFoundException("Category is not found with id : "+productRequest.getCategoryId()));
         ProductEntity productEntity = productMapper.toEntity(productRequest);
         productRepository.save(productEntity);
         imageService.addImages(images,productEntity.getId());

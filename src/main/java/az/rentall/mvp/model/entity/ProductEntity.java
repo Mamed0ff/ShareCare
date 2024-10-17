@@ -24,6 +24,8 @@ public class ProductEntity {
 
     private String location;
 
+    private Boolean isOld;
+
     private Integer viewCount=1;
 
     @ManyToOne
