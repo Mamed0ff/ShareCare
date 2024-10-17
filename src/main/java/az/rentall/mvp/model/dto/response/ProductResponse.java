@@ -21,6 +21,7 @@ public class ProductResponse {
     String description;
     String location;
     Integer viewCount;
+    Boolean isOld;
     UserEntity owner;
     CategoriesEntity category;
 

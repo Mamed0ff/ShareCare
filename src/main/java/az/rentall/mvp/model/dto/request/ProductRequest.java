@@ -25,6 +25,9 @@ public class ProductRequest {
     String description;
 
     @NotBlank
+    private Boolean isOld;
+
+    @NotBlank
     String location;
 
     @NotNull(message = "Category ID cannot be null")
