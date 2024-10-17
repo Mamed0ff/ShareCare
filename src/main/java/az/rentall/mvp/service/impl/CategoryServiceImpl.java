@@ -14,6 +14,7 @@ import az.rentall.mvp.repository.ProductRepository;
 import az.rentall.mvp.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,11 +24,13 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
     private final CategoriesRepository categoriesRepository;
+    private final AmazonS3Service amazonS3Service;
 
     @Override
-    public CategoryResponse createCategory(CategoryRequest categoryRequest) {
+    public CategoryResponse createCategory(CategoryRequest categoryRequest, MultipartFile image) {
         CategoriesEntity categoriesEntity = categoryMapper.toEntity(categoryRequest);
         categoriesEntity.setCreated_at(LocalDateTime.now());
+        categoriesEntity.setImageUrl(amazonS3Service.uploadFile(image));
         categoriesRepository.save(categoriesEntity);
         return categoryMapper.toResponseDto(categoriesEntity);
     }
@@ -47,10 +50,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void updateCategory(CategoryRequest categoryRequest, Long id) {
+    public void updateCategory(CategoryRequest categoryRequest, Long id,MultipartFile image) {
         CategoriesEntity entity = categoriesRepository.findById(id).orElseThrow(()->new NotFoundException("Category is not found with id : "+id));
         CategoriesEntity updatedEntity = categoryMapper.toEntity(categoryRequest);
         updatedEntity.setId(entity.getId());
+        updatedEntity.setImageUrl(amazonS3Service.uploadFile(image));
         categoriesRepository.save(updatedEntity);
     }
 

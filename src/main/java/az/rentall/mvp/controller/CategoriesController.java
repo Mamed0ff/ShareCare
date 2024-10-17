@@ -6,11 +6,12 @@ import az.rentall.mvp.model.dto.response.CategoryResponse;
 import az.rentall.mvp.model.dto.response.UserResponse;
 import az.rentall.mvp.service.CategoryService;
 import az.rentall.mvp.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1/categories")
 public class CategoriesController {
@@ -22,8 +23,9 @@ public class CategoriesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryResponse createUser(@RequestBody CategoryRequest categoryRequest) {
-        return categoryService.createCategory(categoryRequest);
+    public CategoryResponse createUser(@RequestPart("request") @Valid CategoryRequest categoryRequest,
+                                       @RequestPart("image")MultipartFile image) {
+        return categoryService.createCategory(categoryRequest,image);
     }
 
     @GetMapping("/{id}")
@@ -37,8 +39,8 @@ public class CategoriesController {
     }
 
     @PutMapping("/{id}")
-    public void updateCategory (@RequestBody CategoryRequest categoryRequest, @PathVariable Long id){
-        categoryService.updateCategory(categoryRequest, id);
+    public void updateCategory (@RequestPart("request") CategoryRequest categoryRequest, @PathVariable Long id,@RequestPart("image")MultipartFile image){
+        categoryService.updateCategory(categoryRequest, id,image);
     }
 
     @DeleteMapping("/{id}")
