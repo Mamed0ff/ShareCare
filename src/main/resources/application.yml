@@ -6,3 +6,4 @@ spring:
       - mail
       - file-upload
       - security
+      - tg
