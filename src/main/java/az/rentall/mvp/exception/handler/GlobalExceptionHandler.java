@@ -4,7 +4,9 @@ import az.rentall.mvp.exception.*;
 import az.rentall.mvp.model.dto.response.exception.ErrorResponseDto;
 import az.rentall.mvp.model.dto.response.exception.FieldErrorResponse;
 import az.rentall.mvp.model.dto.response.exception.ValidationExceptionResponse;
+import az.rentall.mvp.service.TelegramNotificationService;
 import jakarta.validation.ConstraintViolationException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,9 @@ import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 @Slf4j
+@RequiredArgsConstructor
 public class GlobalExceptionHandler {
+    private final TelegramNotificationService telegramNotificationService;
     private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @ExceptionHandler
@@ -132,10 +136,13 @@ public class GlobalExceptionHandler {
     }
 
     private ErrorResponseDto buildExceptionResponse(String message, int status, String code) {
-        return ErrorResponseDto.builder()
+        ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
                 .message(message)
                 .errorCode(status)
                 .code(code)
+                .localDateTime(LocalDateTime.now())
                 .build();
+       telegramNotificationService.sendNotification(errorResponseDto.toString());
+        return errorResponseDto;
     }
 }
