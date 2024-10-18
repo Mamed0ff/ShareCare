@@ -53,8 +53,10 @@ public class CategoryServiceImpl implements CategoryService {
     public void updateCategory(CategoryRequest categoryRequest, Long id,MultipartFile image) {
         CategoriesEntity entity = categoriesRepository.findById(id).orElseThrow(()->new NotFoundException("Category is not found with id : "+id));
         CategoriesEntity updatedEntity = categoryMapper.toEntity(categoryRequest);
+        updatedEntity.setCreated_at(entity.getCreated_at());
         updatedEntity.setId(entity.getId());
         updatedEntity.setImageUrl(amazonS3Service.uploadFile(image));
+        updatedEntity.setUpdated_at(LocalDateTime.now());
         categoriesRepository.save(updatedEntity);
     }
 
