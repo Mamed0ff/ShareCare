@@ -26,7 +26,6 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     public void addImages(List<MultipartFile> images, Long productId) {
     boolean main = true;
-    log.info("Starting to add images");
     for(MultipartFile image : images ){
         ProductImagesRequest request =ProductImagesRequest.builder()
                 .productId(productId)
@@ -51,7 +50,6 @@ public class ProductImageServiceImpl implements ProductImageService {
 
     @Override
     public List<ProductImageResponse> getIMages(Long productId) {
-        log.info("Retrieving all product related images");
         List<ProductImages> entities = productImagesRepository
                 .findByProductIdAndStatus(productId, true);
         return ProductImageMapper.INSTANCE.entitiesToResponses(entities);
