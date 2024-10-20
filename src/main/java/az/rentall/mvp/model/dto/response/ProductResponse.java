@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductResponse {
+    Long id;
     String name;
     String description;
     String location;

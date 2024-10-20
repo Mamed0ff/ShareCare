@@ -24,7 +24,7 @@ public class ProductRequest {
     @NotBlank
     String description;
 
-    @NotBlank
+    @NotNull
     private Boolean isOld;
 
     @NotBlank

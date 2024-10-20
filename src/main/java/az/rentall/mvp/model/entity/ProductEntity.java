@@ -26,7 +26,7 @@ public class ProductEntity {
 
     private Boolean isOld;
 
-    private Integer viewCount=1;
+    private Integer viewCount;
 
     @ManyToOne
     private UserEntity owner;
@@ -42,5 +42,10 @@ public class ProductEntity {
 
     public void increaseView(){
         this.viewCount++;
+    }
+
+    @PrePersist
+    protected void autoFill(){
+        this.viewCount=0;
     }
 }
