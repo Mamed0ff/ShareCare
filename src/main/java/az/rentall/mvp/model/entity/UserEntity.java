@@ -29,7 +29,7 @@ public class UserEntity {
     String username;
 
     @Column(nullable = false, unique = true)
-    String gmail;
+    String email;
 
     String password;
 
