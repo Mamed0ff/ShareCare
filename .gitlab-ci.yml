@@ -14,7 +14,13 @@ build:
   image: gradle:7.5.0-jdk17
   script:
     - echo "Building the Java project..."
-    - ./gradlew bootJar --no-daemon
+    - gradle clean build -x test
+  artifacts:
+    paths:
+      - build/libs/*.jar 
+    when: on_success
+    access: all
+    expire_in: 30 days
   only:
     - dev
 
