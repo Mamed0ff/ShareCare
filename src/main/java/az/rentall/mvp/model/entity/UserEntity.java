@@ -55,6 +55,4 @@ public class UserEntity {
 //    @OneToMany(mappedBy = "owner",cascade = CascadeType.REMOVE,orphanRemoval = true)
 //    List<ProductEntity> products;
 
-    @OneToOne(cascade = CascadeType.PERSIST,mappedBy = "user",orphanRemoval = true)
-    UserCabinet cabinet;
 }
