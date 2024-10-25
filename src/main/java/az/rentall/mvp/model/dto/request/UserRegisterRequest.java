@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserRequest {
+public class UserRegisterRequest {
     @NotNull
     Long id;
 
@@ -38,18 +38,5 @@ public class UserRequest {
     @NotBlank
     @ValidPassword
     String password;
-
-    @NotBlank
-    @ValidPhoneNumber
-    String phoneNumber;
-
-    @NotBlank
-    @ValidImages
-    String profileImage; // Saving path here, actual picture will be stored in images folder
-
-    @NotBlank
-    Boolean isVerified;
-
-    @NotBlank
-    RoleType roleType;
+    
 }
