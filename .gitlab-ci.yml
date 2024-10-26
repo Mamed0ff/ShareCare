@@ -1,13 +1,12 @@
 stages:
   - build
   - security_scan_fs
-  # - static_analysis
-  # - image_build_push
+  - image_build_push
   # - image_scan
   # - deploy
 
 variables:
-    TAG: $CI_COMMIT_SHA
+  TAG: $CI_COMMIT_SHA
 
 build:
   stage: build
@@ -23,6 +22,9 @@ build:
     expire_in: 30 days
   only:
     - dev
+    - stage
+    - main
+
 
 security_scan:
   stage: security_scan_fs
@@ -35,5 +37,19 @@ security_scan:
   only:
     - dev
     - stage
-    - main
 
+image_build_push:
+  stage: image_build_push
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
+    - docker build -t "$CI_REGISTRY_IMAGE:$TAG" .
+    - docker push "$CI_REGISTRY_IMAGE:$TAG"
+  only:
+    - dev
+    - stage
+    - main
