@@ -82,5 +82,13 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(product);
     }
 
+    @Override
+    public List<ProductResponse> findByCategoryId(Long id) {
+        categoriesRepository.findById(id).orElseThrow(()->new NotFoundException("Category not found with id : "+id));
+        List<ProductEntity> products = productRepository.findByCategoryId(id);
+        List<ProductResponse> responses = products.stream().map(product->productMapper.toResponseDto(product)).collect(Collectors.toList());
+        return responses;
+    }
+
 
 }
