@@ -1,5 +1,5 @@
 package az.rentall.mvp.service;
 
 public interface EmailSenderService {
-    public void sendOtp(String toEmail, String otpCode);
+    public void sendEmail(String toEmail, String subject, String text);
 }

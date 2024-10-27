@@ -1,8 +1,9 @@
 package az.rentall.mvp.controller;
 
-import az.rentall.mvp.model.dto.request.UserRequest;
+import az.rentall.mvp.model.dto.request.UserRegisterRequest;
 import az.rentall.mvp.model.dto.response.UserResponse;
 import az.rentall.mvp.service.UserService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +18,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse createUser(@RequestBody UserRequest userRequest) {
-        return userService.createUser(userRequest);
-    }
-
     @GetMapping("/{id}")
     public UserResponse findById(@PathVariable Long id){
         return userService.findById(id);
@@ -30,11 +25,11 @@ public class UserController {
 
     @GetMapping
     public List<UserResponse> findAllUsers(){
-        return userService.findAllUsers();
+        return null;
     }
 
     @PutMapping("/{id}")
-    public void updateUser (@RequestBody UserRequest userRequest, @PathVariable Long id){
-        userService.updateUser(userRequest, id);
+    public void updateUser (@PathVariable Long id){
+
     }
 }

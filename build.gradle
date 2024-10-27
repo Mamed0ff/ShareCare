@@ -35,7 +35,6 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.12.5'
 
-
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'

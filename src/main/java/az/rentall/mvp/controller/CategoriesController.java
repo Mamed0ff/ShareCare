@@ -1,7 +1,7 @@
 package az.rentall.mvp.controller;
 
 import az.rentall.mvp.model.dto.request.CategoryRequest;
-import az.rentall.mvp.model.dto.request.UserRequest;
+
 import az.rentall.mvp.model.dto.response.CategoryResponse;
 import az.rentall.mvp.model.dto.response.UserResponse;
 import az.rentall.mvp.service.CategoryService;

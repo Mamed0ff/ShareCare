@@ -39,11 +39,11 @@ public class UserEntity {
 
     LocalDateTime updated_at;
 
-    String profileImage; // Saving path here, actual picture will be stored in images folder
+    String photoUrl; // Saving path here, actual picture will be stored in images folder
 
     LocalDateTime uploaded_at;
 
-    String token;
+    String verificationCode;
 
     Boolean isVerified;
 
