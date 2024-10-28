@@ -7,3 +7,4 @@ spring:
       - file-upload
       - security
       - tg
+      - changelog
