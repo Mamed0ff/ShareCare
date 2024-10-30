@@ -23,9 +23,8 @@ public class Faqs {
     private LocalDate createdDate;
     private LocalDate updatedDate;
 
-    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "CategoriesEntity_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private CategoriesEntity category;
 
     @PrePersist

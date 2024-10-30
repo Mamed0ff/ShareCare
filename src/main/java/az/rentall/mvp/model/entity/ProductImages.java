@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "prod_images")
+@Table(name = "product_images")
 public class ProductImages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class ProductImages {
 
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "ProductEntity_id", referencedColumnName = "id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     private ProductEntity product;
 
     @PrePersist

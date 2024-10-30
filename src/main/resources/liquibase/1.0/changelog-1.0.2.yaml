@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: Create users table
+      author: Rizvan Mammadzada
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: surname
+                  type: varchar(255)
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type : varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: varchar(13)
+              - column:
+                  name: photo_url
+                  type: varchar(1023)
+              - column:
+                  name: verification_code
+                  type: varchar(4)
+              - column:
+                  name: is_verified
+                  type: boolean
+              - column:
+                  name: role_type
+                  type: varchar(8)
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: now()
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: now()

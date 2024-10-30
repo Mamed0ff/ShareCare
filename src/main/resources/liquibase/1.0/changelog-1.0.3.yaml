@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: Create category table
-      author: Rizvan Mammadzada
+      id: Create product table
+      author: Rizvan Mammadazada
       changes:
         - createTable:
-            tableName: categories
+            tableName: products
             columns:
               - column:
                   name: id
@@ -15,18 +15,34 @@ databaseChangeLog:
                   name: name
                   type: varchar(255)
                   constraints:
-                    unique: true
                     nullable: false
               - column:
                   name: description
                   type: text
               - column:
-                  name: imageUrl
+                  name: location
                   type: varchar(255)
               - column:
-                  name: prodCount
+                  name: is_old
+                  type: boolean
+              - column:
+                  name: view_count
                   type: int
                   defaultValue: 0
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: users(id)
+                    foreignKeyName: fk_products_users
+              - column:
+                  name: category_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: categories(id)
+                    foreignKeyName: fk_products_categories
               - column:
                   name: created_at
                   type: timestamp
