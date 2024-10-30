@@ -24,13 +24,8 @@ public class UserResponse {
 
     String gmail;
 
-    String password;
-
     String phoneNumber;
 
     String profileImage; // Saving path here, actual picture will be stored in images folder
 
-    Boolean isVerified;
-
-    RoleType roleType;
 }

@@ -3,6 +3,7 @@ package az.rentall.mvp.model.dto.request;
 import az.rentall.mvp.util.annotation.ValidEmail;
 import az.rentall.mvp.util.annotation.ValidPhoneNumber;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 public class UserUpdateRequest {
 
     @ValidEmail
+    @NotNull
     private String email;
 
     @ValidPhoneNumber
