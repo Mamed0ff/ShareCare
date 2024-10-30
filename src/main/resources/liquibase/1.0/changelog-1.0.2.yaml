@@ -40,6 +40,9 @@ databaseChangeLog:
                   name: photo_url
                   type: varchar(1023)
               - column:
+                  name: birthDay
+                  type: timestamp
+              - column:
                   name: verification_code
                   type: varchar(4)
               - column:

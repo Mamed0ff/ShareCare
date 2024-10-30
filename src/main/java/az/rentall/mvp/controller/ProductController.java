@@ -54,11 +54,16 @@ public class ProductController {
 
     @GetMapping("/category/{id}")
     public List<ProductResponse> findProductsByCategory(@PathVariable Long id){
-        return null;
+        return productService.findByCategoryId(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id){
         productService.deleteProduct(id);
+    }
+
+    @GetMapping("user/{id}")
+    public List<ProductResponse> findProductsByUser(@PathVariable Long id){
+        return productService.findByUserId(id);
     }
 }

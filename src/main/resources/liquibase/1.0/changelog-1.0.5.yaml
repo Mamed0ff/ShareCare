@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: Create Carousel table
+      author: Rizvan Mammadzada
+      changes:
+        - createTable:
+            tableName: carousels
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: varchar(300)
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: image_url
+                  type: varchar(1023)

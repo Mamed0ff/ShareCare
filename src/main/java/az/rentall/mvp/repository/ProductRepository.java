@@ -15,4 +15,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long>, P
     @Query(value = "select * from products where upper(name) like %:name%", nativeQuery = true)
     public List<ProductEntity> searchProductsByName(String name);
     public List<ProductEntity> findByCategoryId(Long id);
+    public List<ProductEntity> findByOwnerId(Long id);
 }
