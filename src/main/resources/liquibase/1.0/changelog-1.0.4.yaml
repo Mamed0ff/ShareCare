@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: Create faq table
+      id: Create product image table
       author: Rizvan Mammadzada
       changes:
         - createTable:
-            tableName: faqs
+            tableName: product_images
             columns:
               - column:
                   name: id
@@ -12,28 +12,26 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: question
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
+                  name: path
+                  type: varchar(1023)
               - column:
-                  name: answer
-                  type: text
-              - column:
-                  name: is_answered
+                  name: status
                   type: boolean
               - column:
-                  name: created_date
+                  name: main
+                  type: boolean
+              - column:
+                  name: upload_date
                   type: timestamp
                   defaultValueComputed: now()
               - column:
-                  name: updated_date
+                  name: update_date
                   type: timestamp
                   defaultValueComputed: now()
               - column:
-                  name: category_id
+                  name: product_id
                   type: bigint
                   constraints:
                     nullable: false
-                    references: categories(id)
-                    foreignKeyName: fk_faqs_categories
+                    references: products(id)
+                    foreignKeyName: fk_product_images_products

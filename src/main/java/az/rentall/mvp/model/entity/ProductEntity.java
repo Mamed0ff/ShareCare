@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -28,11 +29,18 @@ public class ProductEntity {
 
     private Integer viewCount;
 
+    private LocalDateTime created_at;
+
+    private LocalDateTime updated_at;
+
+
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private UserEntity owner;
 
-    @JsonBackReference
+
     @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "category_id")
     private CategoriesEntity category;
 
     @JsonBackReference

@@ -1,3 +1,5 @@
 databaseChangeLog:
   - includeAll:
-      path: classpath:liquibase/1.0
+      path: liquibase/1.0
+#  - includeAll:
+#      path: liquibase/1.1
