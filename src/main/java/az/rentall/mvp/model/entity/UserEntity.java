@@ -48,6 +48,9 @@ public class UserEntity {
 
     Boolean isVerified;
 
+    @Column(name = "expiry_date")
+    LocalDateTime expiryDate;
+
     LocalDate birthDay;
 
 
@@ -55,7 +58,9 @@ public class UserEntity {
     @Column(nullable = false)
     RoleType roleType;
 
-//    @OneToMany(mappedBy = "owner",cascade = CascadeType.REMOVE,orphanRemoval = true)
-//    List<ProductEntity> products;
+    @PrePersist
+    public void autoFill(){
+        this.isVerified=false;
+    }
 
 }

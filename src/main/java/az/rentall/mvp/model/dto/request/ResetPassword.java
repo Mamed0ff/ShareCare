@@ -5,6 +5,5 @@ import lombok.Getter;
 
 @Getter
 public class ResetPassword {
-    private String email;
     private String password;
 }
