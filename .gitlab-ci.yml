@@ -33,7 +33,7 @@ security_scan:
     entrypoint: [""]
   script:
     - echo "Security scan with Trivy..."
-    - trivy fs --skip-update --exit-code 0 --no-progress --severity LOW,MEDIUM,HIGH,CRITICAL .
+    - trivy fs --skip-db-update --exit-code 0 --no-progress --severity LOW,MEDIUM,HIGH,CRITICAL .
   only:
     - dev
     - stage
