@@ -9,6 +9,7 @@ import az.rentall.mvp.model.dto.response.UserResponse;
 import az.rentall.mvp.model.entity.UserEntity;
 import az.rentall.mvp.repository.UserRepository;
 import az.rentall.mvp.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +40,7 @@ public class UserServiceImpl implements UserService {
         return UserMapper.INSTANCE.entitiesToResponses(entities);
     }
 
+    @Transactional
     @Override
     public UserResponse update(UserUpdateRequest request, MultipartFile image) {
         String email = getCurrentEmail();

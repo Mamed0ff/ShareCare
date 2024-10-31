@@ -40,7 +40,10 @@ databaseChangeLog:
                   name: photo_url
                   type: varchar(1023)
               - column:
-                  name: birthDay
+                  name: uploaded_at
+                  type: timestamp
+              - column:
+                  name: birth_day
                   type: timestamp
               - column:
                   name: verification_code
@@ -48,6 +51,9 @@ databaseChangeLog:
               - column:
                   name: is_verified
                   type: boolean
+              - column:
+                  name: expiry_date
+                  type: timestamp
               - column:
                   name: role_type
                   type: varchar(8)
