@@ -62,7 +62,7 @@ deploy_to_vm:
   stage: deploy
   image: alpine:latest
   dependencies:
-    - build_push
+    - image_build_push
   before_script:
     - apk add --no-cache openssh-client
     - mkdir -p ~/.ssh
