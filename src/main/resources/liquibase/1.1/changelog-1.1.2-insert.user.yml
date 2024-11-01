@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: Insert User Arzu
+      id: Insert User Rza
       author: Rizvan Mammadzada
       changes:
         - insert:
@@ -8,22 +8,22 @@ databaseChangeLog:
             columns:
               - column:
                   name: name
-                  value: Arzu
+                  value: Rza
               - column:
                   name: surname
-                  value: Huseyin
+                  value: Rzayev
               - column:
                   name: username
-                  value: Product Owner
+                  value: DevOps
               - column:
                   name: email
-                  value: arzu2018huseyn@gmail.com
+                  value: therzarzayev@gmail.com
               - column:
                   name: password
                   value: $2a$10$aQqVFgtrtaTQwlJamR/Zhe315WFm6nejJdfpgzalXWQ5NeZJUfLeq
               - column:
                   name: phone_number
-                  value: +994554111781
+                  value: +994508203639
               - column:
                   name: created_at
                   value: 2024-11-01 02:19:38.530845
