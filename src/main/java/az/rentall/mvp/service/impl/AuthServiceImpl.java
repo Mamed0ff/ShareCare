@@ -102,7 +102,7 @@ public class AuthServiceImpl implements AuthService {
         UserEntity user = userRepository.findByEmail(email).orElseThrow(() ->
                 new NotFoundException("USER_NOT_FOUND"));
         String token = jwtService.generatePasswordResetToken(email);
-        String resetLink = "http://localhost:8080/auth/reset-password?token=" + token;
+        String resetLink = "https://sharecare.site/auth/reset-password?token=" + token;
         String subject = "Password Reset";
         mailService.sendEmail(user.getEmail(), subject, resetLink);
     }
