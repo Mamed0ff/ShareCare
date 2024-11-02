@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -51,7 +52,10 @@ public class UserServiceImpl implements UserService {
                 throw new AlreadyExistsException("EMAIL_ALREADY_EXISTS");
             }
         }
-        user.setPhotoUrl(amazonS3Service.uploadFile(image));
+        if(!image.isEmpty()){
+            user.setPhotoUrl(amazonS3Service.uploadFile(image));
+        }
+        user.setUpdated_at(LocalDateTime.now());
         UserMapper.INSTANCE.mapRequestToEntity(user,request);
         userRepository.save(user);
         return UserMapper.INSTANCE.toResponseDto(user);
