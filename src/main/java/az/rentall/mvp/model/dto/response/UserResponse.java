@@ -1,8 +1,5 @@
 package az.rentall.mvp.model.dto.response;
 
-import az.rentall.mvp.model.Enums.RoleType;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
