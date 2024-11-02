@@ -33,7 +33,7 @@ public class CategoriesController {
         return categoryService.findById(id);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<CategoryResponse> findAllCategories(){
         return categoryService.findAllCategories();
     }
