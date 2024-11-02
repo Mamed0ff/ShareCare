@@ -23,8 +23,6 @@ public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
             "/auth/**",
-            "/carousel/all",
-            "/carousel/{id}",
             "/users/{id}",
             "/faqs/all",
             "/webjars/**",
@@ -56,6 +54,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request-> request
                         .requestMatchers(AUTH_WHITELIST).permitAll()
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/carousel/all").permitAll()
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
                         .requestMatchers(AUTH_IGNORE_WHITELIST).hasAuthority("ADMIN")
                         .anyRequest().authenticated())
