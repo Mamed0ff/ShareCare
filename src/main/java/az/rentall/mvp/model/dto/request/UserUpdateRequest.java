@@ -29,7 +29,5 @@ public class UserUpdateRequest {
 
     private String surname;
 
-    private String photoUrl;
-
     private LocalDate birthDay;
 }
