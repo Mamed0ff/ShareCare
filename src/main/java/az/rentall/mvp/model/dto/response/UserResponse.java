@@ -22,10 +22,10 @@ public class UserResponse {
 
     String username;
 
-    String gmail;
+    String email;
 
     String phoneNumber;
 
-    String profileImage; // Saving path here, actual picture will be stored in images folder
+    String photoUrl; // Saving path here, actual picture will be stored in images folder
 
 }
