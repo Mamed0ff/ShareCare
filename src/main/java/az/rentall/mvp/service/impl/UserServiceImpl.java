@@ -5,14 +5,20 @@ import az.rentall.mvp.exception.NotFoundException;
 import az.rentall.mvp.mapper.UserMapper;
 import az.rentall.mvp.model.Enums.RoleType;
 import az.rentall.mvp.model.dto.request.UserUpdateRequest;
+import az.rentall.mvp.model.dto.response.TokenResponse;
 import az.rentall.mvp.model.dto.response.UserResponse;
 import az.rentall.mvp.model.entity.UserEntity;
 import az.rentall.mvp.repository.UserRepository;
+import az.rentall.mvp.security.JwtTokenProvider;
+import az.rentall.mvp.security.UserPrincipal.UserPrincipal;
 import az.rentall.mvp.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -21,12 +27,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final AmazonS3Service amazonS3Service;
     private final UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public UserResponse findById(Long id) {
@@ -76,14 +84,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public String getCurrentEmail() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(principal instanceof UserDetails){
-            return ((UserDetails) principal).getUsername();
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(userPrincipal != null){
+            log.info("user principal {}",userPrincipal);
+            return ((UserDetails) userPrincipal).getUsername();
         }
         else{
-            return principal.toString();
+            log.info("user principal tostring {}",userPrincipal.toString());
+            return userPrincipal.toString();
         }
-
     }
 
     @Override

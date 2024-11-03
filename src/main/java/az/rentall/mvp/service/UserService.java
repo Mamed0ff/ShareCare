@@ -15,13 +15,13 @@ public interface UserService {
 
     UserResponse findById(Long id);
 
-    public List<UserResponse> findAllUsers(Pageable pageable);
+     List<UserResponse> findAllUsers(Pageable pageable);
 
-    public UserResponse update(UserUpdateRequest request, MultipartFile image);
+     UserResponse update(UserUpdateRequest request, MultipartFile image);
 
-    public void setRole(Long userId, String role);
+     void setRole(Long userId, String role);
 
-    public String getCurrentEmail();
+     String getCurrentEmail();
 
-    public UserResponse getMyProfile();
+     UserResponse getMyProfile();
 }

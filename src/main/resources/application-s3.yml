@@ -1,12 +1,12 @@
 cloud:
   aws:
     credentials:
-      access-key: ${AWS_ACCESS-KEY}
-      secret-key: ${AWS_SECRET-KEY}
+      access-key: AKIAQ4J5X345R5F6Q644
+      secret-key: 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
     region:
-      static: ${AWS_REGION}
+      static: eu-north-1
     stack:
       auto: false
     s3:
       bucket:
-        name: ${AWS_BUCKET-NAME}
+        name: productimages-0
