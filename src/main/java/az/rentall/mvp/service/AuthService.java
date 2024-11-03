@@ -5,7 +5,6 @@ import az.rentall.mvp.model.dto.request.ResetPassword;
 import az.rentall.mvp.model.dto.request.UserLoginRequest;
 import az.rentall.mvp.model.dto.request.UserRegisterRequest;
 import az.rentall.mvp.model.dto.request.VerificationRequest;
-import az.rentall.mvp.model.dto.response.JwtResponse;
 import az.rentall.mvp.model.dto.response.TokenResponse;
 
 public interface AuthService {

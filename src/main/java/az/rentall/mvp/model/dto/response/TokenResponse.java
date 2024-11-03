@@ -1,8 +1,17 @@
 package az.rentall.mvp.model.dto.response;
 
-import lombok.Data;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@Data
+@Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TokenResponse {
-    private String accessToken;
+    private String email;
+    private String token;
 }
