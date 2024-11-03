@@ -4,7 +4,6 @@ import az.rentall.mvp.model.dto.request.ResetPassword;
 import az.rentall.mvp.model.dto.request.UserLoginRequest;
 import az.rentall.mvp.model.dto.request.UserRegisterRequest;
 import az.rentall.mvp.model.dto.request.VerificationRequest;
-import az.rentall.mvp.model.dto.response.JwtResponse;
 import az.rentall.mvp.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> login(@RequestBody @Valid UserLoginRequest userLoginRequest) {
+    public ResponseEntity<TokenResponse> login(@RequestBody @Valid UserLoginRequest userLoginRequest) {
         return ResponseEntity.ok(authService.login(userLoginRequest));
     }
 

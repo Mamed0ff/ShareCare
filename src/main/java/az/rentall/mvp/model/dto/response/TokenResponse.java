@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class JwtResponse {
+public class TokenResponse {
     private String email;
     private String token;
 }

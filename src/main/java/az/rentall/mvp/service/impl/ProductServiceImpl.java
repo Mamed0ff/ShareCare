@@ -6,11 +6,13 @@ import az.rentall.mvp.mapper.ProductMapper;
 import az.rentall.mvp.model.dto.request.ProductRequest;
 import az.rentall.mvp.model.dto.response.ProductResponse;
 import az.rentall.mvp.model.entity.ProductEntity;
+import az.rentall.mvp.model.entity.UserEntity;
 import az.rentall.mvp.repository.CategoriesRepository;
 import az.rentall.mvp.repository.ProductRepository;
 import az.rentall.mvp.repository.UserRepository;
 import az.rentall.mvp.service.ProductImageService;
 import az.rentall.mvp.service.ProductService;
+import az.rentall.mvp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
@@ -30,6 +32,7 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
     private final UserRepository userRepository;
     private final ProductMapper productMapper;
+    private final UserService userService;
     private final ProductRepository productRepository;
     private final ProductImageService imageService;
     private final CategoriesRepository categoriesRepository;
@@ -37,7 +40,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse createProduct(ProductRequest productRequest, List<MultipartFile> images) {
         categoriesRepository.findById(productRequest.getCategoryId()).orElseThrow(()->new NotFoundException("Category is not found with id : "+productRequest.getCategoryId()));
+        String email = userService.getCurrentEmail();
+        UserEntity user = userRepository.findByEmail(email).orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
         ProductEntity productEntity = productMapper.toEntity(productRequest);
+        productEntity.setOwner(user);
         productEntity.setCreated_at(LocalDateTime.now());
         productRepository.save(productEntity);
         imageService.addImages(images,productEntity.getId());
@@ -46,7 +52,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse findById(Long id) {
-
         ProductEntity entity= productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product is not found by id: " + id));
         entity.increaseView();
         productRepository.save(entity);
@@ -65,11 +70,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void updateProduct(ProductRequest productRequest, Long id,List<MultipartFile> images) {
+        String email = userService.getCurrentEmail();
+        UserEntity user = userRepository.findByEmail(email).orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
         ProductEntity oldEntity = productRepository.findById(id).orElseThrow(()->new NotFoundException("Product is not found with id : "+id));
         ProductEntity productEntity = productMapper.toEntity(productRequest);
         productEntity.setCreated_at(oldEntity.getCreated_at());
         productEntity.setUpdated_at(LocalDateTime.now());
         productEntity.setId(id);
+        productEntity.setOwner(user);
         productRepository.save(productEntity);
         imageService.editImage(images,id);
     }

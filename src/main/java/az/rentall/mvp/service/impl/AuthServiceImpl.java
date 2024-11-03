@@ -7,20 +7,20 @@ import az.rentall.mvp.model.dto.request.ResetPassword;
 import az.rentall.mvp.model.dto.request.UserLoginRequest;
 import az.rentall.mvp.model.dto.request.UserRegisterRequest;
 import az.rentall.mvp.model.dto.request.VerificationRequest;
-import az.rentall.mvp.model.dto.response.JwtResponse;
+import az.rentall.mvp.model.dto.response.TokenResponse;
 import az.rentall.mvp.model.entity.UserEntity;
 import az.rentall.mvp.repository.UserRepository;
+import az.rentall.mvp.security.JwtTokenProvider;
 import az.rentall.mvp.service.AuthService;
 import az.rentall.mvp.service.EmailSenderService;
-import az.rentall.mvp.service.jwt.JwtService;
-import az.rentall.mvp.service.jwt.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,11 +32,15 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final JwtService jwtService;
+    private final JwtTokenProvider jwtService;
     private final EmailSenderService mailService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserDetailsService userService;
+
+
 
     @Override
     public void register(UserRegisterRequest userRegisterRequest) {
@@ -56,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public JwtResponse login(UserLoginRequest request) {
+    public TokenResponse login(UserLoginRequest request) {
         UserEntity user = userRepository.findByEmail(request.getEmail()).orElseThrow(() ->
                 new NotFoundException("USER_NOT_FOUND"));
         if(!user.getIsVerified()){
@@ -64,10 +68,12 @@ public class AuthServiceImpl implements AuthService {
         }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        User principal = (User) authentication.getPrincipal();
-
-        var jwtToken = jwtService.generateAccessToken(principal);
-        return new JwtResponse(principal.getUsername(),jwtToken);
+        TokenResponse tokenResponse=new TokenResponse();
+        tokenResponse.setEmail(request.getEmail());
+        tokenResponse.setToken(jwtTokenProvider.generateToken((UserDetails) authentication.getPrincipal()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        log.info("Authentication Security Context Holder:{}",SecurityContextHolder.getContext().getAuthentication().getName());
+        return tokenResponse;
     }
 
     @Override
@@ -101,7 +107,8 @@ public class AuthServiceImpl implements AuthService {
     public void updatePassword(String email) {
         UserEntity user = userRepository.findByEmail(email).orElseThrow(() ->
                 new NotFoundException("USER_NOT_FOUND"));
-        String token = jwtService.generatePasswordResetToken(email);
+        UserDetails userDetails= userService.loadUserByUsername(user.getEmail());
+        String token = jwtService.generateToken(userDetails);
         String resetLink = "https://sharecare.site/auth/reset-password?token=" + token;
         String subject = "Password Reset";
         mailService.sendEmail(user.getEmail(), subject, resetLink);
@@ -109,10 +116,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void resetPassword(String token, ResetPassword resetPassword) {
-        if(!jwtService.validateToken(token)){
+        if(!jwtTokenProvider.validateToken(token)){
             throw new InvalidTokenException("INVALID_TOKEN");
         }
-        String email = jwtService.extractEmail(token);
+        String email = jwtTokenProvider.tokenParser(token).getSubject();
         UserEntity user = userRepository.findByEmail(email).orElseThrow(() ->
                 new NotFoundException("USER_NOT_FOUND"));
         user.setPassword(passwordEncoder.encode(resetPassword.getPassword()));
