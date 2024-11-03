@@ -1,4 +1,4 @@
 spring:
   liquibase:
-    enabled: false
+    enabled: true
     change-log: 'liquibase/changelog-master.yaml'
