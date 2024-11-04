@@ -19,7 +19,7 @@ public class CorsConfig {
                 "http://localhost:5173",
                 "https://sharecare.site",
                 "http://api.sharecare.site"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE","OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE","OPTIONS"));//preflight solved
         configuration.setAllowedHeaders( Arrays.asList("*"));
         configuration.setAllowCredentials(true);
 
