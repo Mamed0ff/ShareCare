@@ -17,7 +17,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/products")
+@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -52,8 +52,18 @@ public class ProductController {
         return productService.searchProductsByName(name);
     }
 
+    @GetMapping("/category/{id}")
+    public List<ProductResponse> findProductsByCategory(@PathVariable Long id){
+        return productService.findByCategoryId(id);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id){
         productService.deleteProduct(id);
+    }
+
+    @GetMapping("user/{id}")
+    public List<ProductResponse> findProductsByUser(@PathVariable Long id){
+        return productService.findByUserId(id);
     }
 }

@@ -1,7 +1,7 @@
 package az.rentall.mvp.controller;
 
 import az.rentall.mvp.model.dto.request.CategoryRequest;
-import az.rentall.mvp.model.dto.request.UserRequest;
+
 import az.rentall.mvp.model.dto.response.CategoryResponse;
 import az.rentall.mvp.model.dto.response.UserResponse;
 import az.rentall.mvp.service.CategoryService;
@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 @RestController
-@RequestMapping("/api/v1/categories")
+@RequestMapping("/categories")
 @RequiredArgsConstructor
 public class CategoriesController {
     private final CategoryService categoryService;
@@ -33,7 +33,7 @@ public class CategoriesController {
         return categoryService.findById(id);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<CategoryResponse> findAllCategories(){
         return categoryService.findAllCategories();
     }

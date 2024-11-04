@@ -1,2 +1,2 @@
 jwt:
-  secret-key: ZVc5MUlHRnlaU0JuWlc1cGRYTWdhV1lnZFNCallXNGdaR1ZqYjJSbElHbDA=
+  secret-key: ${SECURITY_SECRET-KEY}

@@ -8,6 +8,8 @@ import az.rentall.mvp.util.annotation.ValidPhoneNumber;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,38 +20,23 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserRequest {
-    @NotNull
-    Long id;
+public class UserRegisterRequest {
 
-    @NotBlank
-    String name;
-
-    @NotBlank
-    String surname;
-
-    @NotBlank
-    String username;
-
-    @NotBlank
     @ValidEmail
-    String gmail;
+    String email;
 
-    @NotBlank
     @ValidPassword
     String password;
 
-    @NotBlank
-    @ValidPhoneNumber
-    String phoneNumber;
 
-    @NotBlank
-    @ValidImages
-    String profileImage; // Saving path here, actual picture will be stored in images folder
+    @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
+    @Pattern(regexp = "^[A-Za-zƏəÖöÜüŞşÇçığ]+$", message = "Name must contain only Azerbaijani letters")
+    @NotBlank(message = "Name cannot be blank")
+    private String name;
 
-    @NotBlank
-    Boolean isVerified;
+    @Pattern(regexp = "^\\+994\\d{9}$", message = "Phone number must be in the format +994XXXXXXXXX")
+    @NotBlank(message = "Phone number cannot be blank")
+    private String phoneNumber;
 
-    @NotBlank
-    RoleType roleType;
+    String username;
 }

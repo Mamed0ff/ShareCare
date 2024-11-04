@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: Create product table
+      author: Rizvan Mammadazada
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: location
+                  type: varchar(255)
+              - column:
+                  name: is_old
+                  type: boolean
+              - column:
+                  name: view_count
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: users(id)
+                    foreignKeyName: fk_products_users
+              - column:
+                  name: category_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: categories(id)
+                    foreignKeyName: fk_products_categories
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: now()
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: now()

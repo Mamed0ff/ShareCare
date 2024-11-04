@@ -1,8 +1,5 @@
 package az.rentall.mvp.model.dto.response;
 
-import az.rentall.mvp.model.Enums.RoleType;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,15 +19,10 @@ public class UserResponse {
 
     String username;
 
-    String gmail;
-
-    String password;
+    String email;
 
     String phoneNumber;
 
-    String profileImage; // Saving path here, actual picture will be stored in images folder
+    String photoUrl; // Saving path here, actual picture will be stored in images folder
 
-    Boolean isVerified;
-
-    RoleType roleType;
 }

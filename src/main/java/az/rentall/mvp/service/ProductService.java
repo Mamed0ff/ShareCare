@@ -15,4 +15,7 @@ public interface ProductService {
     void updateProduct(ProductRequest productRequest, Long id,List<MultipartFile> images);
     List<ProductResponse> searchProductsByName(String name);
     void deleteProduct(Long id);
+    List<ProductResponse> findByCategoryId(Long id);
+    List<ProductResponse> findByUserId(Long id);
+
 }

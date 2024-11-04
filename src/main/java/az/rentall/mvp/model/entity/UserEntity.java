@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,22 +40,27 @@ public class UserEntity {
 
     LocalDateTime updated_at;
 
-    String profileImage; // Saving path here, actual picture will be stored in images folder
+    String photoUrl; // Saving path here, actual picture will be stored in images folder
 
     LocalDateTime uploaded_at;
 
-    String token;
+    String verificationCode;
 
     Boolean isVerified;
+
+    @Column(name = "expiry_date")
+    LocalDateTime expiryDate;
+
+    LocalDate birthDay;
 
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     RoleType roleType;
 
-//    @OneToMany(mappedBy = "owner",cascade = CascadeType.REMOVE,orphanRemoval = true)
-//    List<ProductEntity> products;
+    @PrePersist
+    public void autoFill(){
+        this.isVerified=false;
+    }
 
-    @OneToOne(cascade = CascadeType.PERSIST,mappedBy = "user",orphanRemoval = true)
-    UserCabinet cabinet;
 }

@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: Create faq table
+      author: Rizvan Mammadzada
+      changes:
+        - createTable:
+            tableName: faqs
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: question
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: answer
+                  type: text
+              - column:
+                  name: is_answered
+                  type: boolean
+              - column:
+                  name: created_date
+                  type: timestamp
+                  defaultValueComputed: now()
+              - column:
+                  name: updated_date
+                  type: timestamp
+                  defaultValueComputed: now()
+              - column:
+                  name: category_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: categories(id)
+                    foreignKeyName: fk_faqs_categories

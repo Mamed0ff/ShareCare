@@ -23,7 +23,7 @@ public class FaqsController {
         faqsService.createFaq(request);
     }
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public List<FaqsResponse> getAllFaqs(){
         return faqsService.getAllFaqs();
     }

@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: Create product image table
+      author: Rizvan Mammadzada
+      changes:
+        - createTable:
+            tableName: product_images
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: path
+                  type: varchar(1023)
+              - column:
+                  name: status
+                  type: boolean
+              - column:
+                  name: main
+                  type: boolean
+              - column:
+                  name: upload_date
+                  type: timestamp
+                  defaultValueComputed: now()
+              - column:
+                  name: update_date
+                  type: timestamp
+                  defaultValueComputed: now()
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: products(id)
+                    foreignKeyName: fk_product_images_products
