@@ -37,7 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             userPrincipal.setAuthorities(authorities);
             return userPrincipal;
         } else {
-            throw new NotFoundException(email + " not found");
+            throw new NotFoundException(email + " NOT_FOUND");
         }
 
     }
