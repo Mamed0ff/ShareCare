@@ -14,7 +14,7 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter(){
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList(
+        configuration.setAllowedOrigins(Arrays.asList(
                 "http://157.173.202.16:3000",
                 "http://localhost:5173",
                 "https://sharecare.site",
