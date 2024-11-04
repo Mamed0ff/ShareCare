@@ -54,7 +54,6 @@ image_build_push:
     - docker build -t "$CI_REGISTRY_IMAGE:$TAG" .
     - docker push "$CI_REGISTRY_IMAGE:$TAG"
   only:
-    - dev
     - stage
     - main
 
@@ -77,6 +76,4 @@ deploy_to_vm:
     - ssh -p 23920 $SSH_USER@$SSH_HOST "docker stop backend || true && docker rm backend || true"
     - ssh -p 23920 $SSH_USER@$SSH_HOST "docker run -d --env-file=/home/$SSH_USER/.env --name backend -p 8080:8080 --network sharecare $CI_REGISTRY_IMAGE:$TAG"
   only:
-    - dev
-    - stage
-    - prod
+    - main
