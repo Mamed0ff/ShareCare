@@ -20,7 +20,7 @@ public class CorsConfig {
                 "https://sharecare.site",
                 "http://api.sharecare.site"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE","OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowedHeaders( Arrays.asList("*"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source= new UrlBasedCorsConfigurationSource();
