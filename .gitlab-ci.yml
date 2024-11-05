@@ -74,6 +74,6 @@ deploy_to_vm:
     - ssh -p 23920 $SSH_USER@$SSH_HOST "docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY"
     - ssh -p 23920 $SSH_USER@$SSH_HOST "docker pull $CI_REGISTRY_IMAGE:$TAG"
     - ssh -p 23920 $SSH_USER@$SSH_HOST "docker stop backend || true && docker rm backend || true"
-    - ssh -p 23920 $SSH_USER@$SSH_HOST "docker run -d --env-file=/home/$SSH_USER/.env --name backend -p 8080:8080 --network sharecare $CI_REGISTRY_IMAGE:$TAG"
+    - ssh -p 23920 $SSH_USER@$SSH_HOST "docker run -d --env-file=/home/$SSH_USER/.env --name backend --network sharecare --ip 172.18.0.3 $CI_REGISTRY_IMAGE:$TAG"
   only:
     - main
