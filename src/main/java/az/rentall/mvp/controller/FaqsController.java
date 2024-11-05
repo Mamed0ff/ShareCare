@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/faqs")
+@CrossOrigin(origins = {"http://localhost:5173","https://sharecare.site", "https://api.sharecare.site","http://157.173.202.16:3000"})
 public class FaqsController {
 
     private final FaqsService faqsService;

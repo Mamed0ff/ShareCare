@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:5173","https://sharecare.site", "http://api.sharecare.site","http://157.173.202.16:3000"})
+@CrossOrigin(origins = {"http://localhost:5173","https://sharecare.site", "https://api.sharecare.site","http://157.173.202.16:3000"})
 public class ProductController {
 
     private final ProductService productService;
