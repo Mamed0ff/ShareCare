@@ -14,11 +14,7 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter(){
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
-                "http://157.173.202.16:3000",
-                "http://localhost:5173",
-                "https://sharecare.site",
-                "https://api.sharecare.site"));
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList( "GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH", "TRACE", "CONNECT" ));
         configuration.setAllowedHeaders(Arrays.asList( "Authorization", "Cache-Control", "Content-Type", "X-Requested-With", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ));
         configuration.setAllowCredentials(true);
