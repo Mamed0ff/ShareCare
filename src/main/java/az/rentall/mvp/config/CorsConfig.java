@@ -31,6 +31,7 @@ public class CorsConfig {
                 "Accept",
                 "Origin",
                 "Access-Control-Request-Method",
+                "Access-Control-Allow-Origin",
                 "Access-Control-Request-Headers"
         ));
         configuration.setAllowCredentials(true);
