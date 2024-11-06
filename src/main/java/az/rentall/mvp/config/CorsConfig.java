@@ -18,7 +18,7 @@ public class CorsConfig {
                 "https://api.sharecare.site",
                 "https://sharecare.site",
                 "http://localhost:5173",
-                "https://157.173.202.16:8080"
+                "https://157.173.202.16:3000"
         ));
         configuration.setAllowedMethods(Arrays.asList(
                 "GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH", "TRACE", "CONNECT"
@@ -31,6 +31,7 @@ public class CorsConfig {
                 "Accept",
                 "Origin",
                 "Access-Control-Request-Method",
+                "Access-Control-Allow-Origin",
                 "Access-Control-Request-Headers"
         ));
         configuration.setAllowCredentials(true);
