@@ -24,11 +24,11 @@ public class ProductController {
     private final ProductService productService;
 
 
-    @PostMapping
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponse createProduct(@RequestPart("productRequest")  @Valid ProductRequest productRequest,
+    public void createProduct(@RequestPart("productRequest")  @Valid ProductRequest productRequest,
                                          @RequestPart("images")   @ValidImages List<MultipartFile> images) {
-        return productService.createProduct(productRequest,images);
+         productService.createProduct(productRequest,images);
     }
 
     @GetMapping("/{id}")
