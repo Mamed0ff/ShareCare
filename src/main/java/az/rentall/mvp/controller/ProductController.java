@@ -43,7 +43,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public void updateProduct (@RequestPart("productRequest") @Valid ProductRequest productRequest,
-                               @RequestPart("images") @ValidImages List<MultipartFile> images, @PathVariable Long id){
+                               @RequestPart("images") List<MultipartFile> images, @PathVariable Long id){
         productService.updateProduct(productRequest, id,images);
     }
 

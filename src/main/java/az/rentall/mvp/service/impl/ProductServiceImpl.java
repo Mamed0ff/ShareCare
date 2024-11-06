@@ -73,14 +73,18 @@ public class ProductServiceImpl implements ProductService {
         String email = userService.getCurrentEmail();
         UserEntity user = userRepository.findByEmail(email).orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
         ProductEntity oldEntity = productRepository.findById(id).orElseThrow(()->new NotFoundException("Product is not found with id : "+id));
-        ProductEntity productEntity = productMapper.toEntity(productRequest);
-        productEntity.setCreated_at(oldEntity.getCreated_at());
-        productEntity.setUpdated_at(LocalDateTime.now());
-        productEntity.setId(id);
-        productEntity.setOwner(user);
-        productRepository.save(productEntity);
-        if(!images.isEmpty()){
-            imageService.editImage(images,id);
+        if(oldEntity.getOwner().equals(user)) {
+            ProductEntity productEntity = productMapper.toEntity(productRequest);
+            productEntity.setCreated_at(oldEntity.getCreated_at());
+            productEntity.setUpdated_at(LocalDateTime.now());
+            productEntity.setOwner(user);
+            productEntity.setId(id);
+            productRepository.save(productEntity);
+            List<MultipartFile> nonEmptyImages = images.stream() .
+                    filter(file -> !file.isEmpty()) .collect(Collectors.toList());
+            if (!nonEmptyImages.isEmpty()) {
+                imageService.editImage(nonEmptyImages, id);
+            }
         }
     }
 
