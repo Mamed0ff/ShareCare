@@ -79,7 +79,9 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setId(id);
         productEntity.setOwner(user);
         productRepository.save(productEntity);
-        imageService.editImage(images,id);
+        if(!images.isEmpty()){
+            imageService.editImage(images,id);
+        }
     }
 
     @Override
