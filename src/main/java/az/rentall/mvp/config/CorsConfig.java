@@ -12,21 +12,34 @@ import java.util.Arrays;
 public class CorsConfig {
 
     @Bean
-    public CorsFilter corsFilter(){
+    public CorsFilter corsFilter() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
-                "http://157.173.202.16:3000",
-                "http://localhost:5173",
+                "https://api.sharecare.site",
                 "https://sharecare.site",
-                "http://api.sharecare.site"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE","OPTIONS"));//preflight solved
-        configuration.setAllowedHeaders( Arrays.asList("*"));
+                "http://localhost:5173",
+                "https://157.173.202.16:3000"
+        ));
+        configuration.setAllowedMethods(Arrays.asList(
+                "GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH", "TRACE", "CONNECT"
+        ));
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Authorization",
+                "Cache-Control",
+                "Content-Type",
+                "X-Requested-With",
+                "Accept",
+                "Origin",
+                "Access-Control-Request-Method",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Request-Headers"
+        ));
         configuration.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source= new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**",configuration);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
 
         return new CorsFilter(source);
-
     }
 }
+
