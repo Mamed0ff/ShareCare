@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface ProductService {
-    ProductResponse createProduct(ProductRequest productRequest,List<MultipartFile> images);
+    void createProduct(ProductRequest productRequest,List<MultipartFile> images);
     ProductResponse findById(Long id);
     List<ProductResponse> findAllProducts(Pageable pageable);
     void updateProduct(ProductRequest productRequest, Long id,List<MultipartFile> images);

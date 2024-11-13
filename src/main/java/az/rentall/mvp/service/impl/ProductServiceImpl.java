@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
     private final CategoriesRepository categoriesRepository;
 
     @Override
-    public ProductResponse createProduct(ProductRequest productRequest, List<MultipartFile> images) {
+    public void createProduct(ProductRequest productRequest, List<MultipartFile> images) {
         categoriesRepository.findById(productRequest.getCategoryId()).orElseThrow(()->new NotFoundException("Category is not found with id : "+productRequest.getCategoryId()));
         String email = userService.getCurrentEmail();
         UserEntity user = userRepository.findByEmail(email).orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
@@ -47,7 +47,6 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setCreated_at(LocalDateTime.now());
         productRepository.save(productEntity);
         imageService.addImages(images,productEntity.getId());
-        return productMapper.toResponseDto(productEntity);
     }
 
     @Override
