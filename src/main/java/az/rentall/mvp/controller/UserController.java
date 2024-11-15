@@ -16,7 +16,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:5173","https://sharecare.site", "https://api.sharecare.site","http://157.173.202.16:3000"})
 public class UserController {
     private final UserService userService;
 
