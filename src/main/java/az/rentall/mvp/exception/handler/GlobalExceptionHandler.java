@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -59,6 +60,13 @@ public class GlobalExceptionHandler {
     public ErrorResponseDto handleFileUploadException (FileUploadException fileUploadException) {
         log.error("Not found "+fileUploadException.getMessage());
         return buildExceptionResponse(fileUploadException.getMessage(),BAD_REQUEST.value(),"FILE_UPLOAD_ERROR");
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(BAD_REQUEST)
+    public ErrorResponseDto handleBadCredentialsException (BadCredentialsException badCredentialsException) {
+        log.error("Not found "+badCredentialsException.getMessage());
+        return buildExceptionResponse(badCredentialsException.getMessage(),BAD_REQUEST.value(),"WRONG_CREDENTIALS_ERROR");
     }
 
     @ExceptionHandler(AlreadyExistsException.class)
