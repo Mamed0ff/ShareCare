@@ -92,7 +92,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UnauthorizedAccesException.class)
     @ResponseStatus(UNAUTHORIZED)
-    public ErrorResponseDto handleUnauthorizedAccesException(UnauthorizedAccesException exception) {
+    public ErrorResponseDto handleUnauthorizedAccessException(UnauthorizedAccesException exception) {
         log.error("Unauthorized access for argument: "+exception.getMessage());
         return buildExceptionResponse(exception.getMessage(), UNAUTHORIZED.value(), "UNAUTHORIZED");
     }

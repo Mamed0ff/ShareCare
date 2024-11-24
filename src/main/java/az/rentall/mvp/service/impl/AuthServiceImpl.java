@@ -54,9 +54,15 @@ public class AuthServiceImpl implements AuthService {
         user.setExpiryDate(LocalDateTime.now().plusMinutes(5));
         user.setCreated_at(LocalDateTime.now());
         userRepository.save(user);
-
+        String message = "Dear " + user.getName() + ",\n\n" +
+                "Thank you for registering with us! Please use the following verification code to complete your registration:\n\n" +
+                "Verification Code: " + user.getVerificationCode() + "\n\n" +
+                "Please enter this code on the verification page to activate your account.\n" +
+                "If you did not request this verification code, please ignore this email.\n\n" +
+                "Best regards,\n" +
+                "The ShareCare Team";
         String subject = "Verification Code";
-        mailService.sendEmail(user.getEmail(),subject, user.getVerificationCode());
+        mailService.sendEmail(user.getEmail(),subject, message);
     }
 
     @Override
@@ -110,8 +116,14 @@ public class AuthServiceImpl implements AuthService {
         UserDetails userDetails= userService.loadUserByUsername(user.getEmail());
         String token = jwtService.generateToken(userDetails);
         String resetLink = "https://sharecare.site/auth/reset-password?token=" + token;
+        String message = "Dear " + user.getName() + ",\n\n" +
+                "We received a request to reset your password for your account. To reset your password, please click the link below:\n\n" +
+                "Reset Password Link: " + resetLink + "\n\n" +
+                "This link will expire in 10 minutes. If you did not request a password reset, please ignore this email or contact our support team.\n\n" +
+                "Best regards,\n" +
+                "The ShareCare Team";
         String subject = "Password Reset";
-        mailService.sendEmail(user.getEmail(), subject, resetLink);
+        mailService.sendEmail(user.getEmail(), subject, message);
     }
 
     @Override

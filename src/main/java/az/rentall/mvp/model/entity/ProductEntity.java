@@ -27,7 +27,7 @@ public class ProductEntity {
 
     private Boolean isOld;
 
-    private Integer viewCount;
+    private Integer viewCount = 0;
 
     private LocalDateTime created_at;
 
@@ -52,8 +52,4 @@ public class ProductEntity {
         this.viewCount++;
     }
 
-    @PrePersist
-    protected void autoFill(){
-        this.viewCount=0;
-    }
 }
