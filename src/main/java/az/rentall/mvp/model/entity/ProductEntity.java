@@ -27,7 +27,7 @@ public class ProductEntity {
 
     private Boolean isOld;
 
-    private Integer viewCount = 0;
+    private Integer viewCount;
 
     private LocalDateTime created_at;
 

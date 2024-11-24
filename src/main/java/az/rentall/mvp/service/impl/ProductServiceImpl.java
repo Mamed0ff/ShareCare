@@ -44,6 +44,7 @@ public class ProductServiceImpl implements ProductService {
         UserEntity user = userRepository.findByEmail(email).orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
         ProductEntity productEntity = productMapper.toEntity(productRequest);
         productEntity.setOwner(user);
+        productEntity.setViewCount(0);
         productEntity.setCreated_at(LocalDateTime.now());
         productRepository.save(productEntity);
         imageService.addImages(images,productEntity.getId());
