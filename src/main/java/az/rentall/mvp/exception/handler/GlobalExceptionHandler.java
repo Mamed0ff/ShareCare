@@ -62,7 +62,8 @@ public class GlobalExceptionHandler {
         return buildExceptionResponse(fileUploadException.getMessage(),BAD_REQUEST.value(),"FILE_UPLOAD_ERROR");
     }
 
-    @ExceptionHandler(BadCredentialsException.class)
+    @ExceptionHandler({BadCredentialsException.class,
+            NotVerifiedException.class})
     @ResponseStatus(BAD_REQUEST)
     public ErrorResponseDto handleBadCredentialsException (BadCredentialsException badCredentialsException) {
         log.error("Not found "+badCredentialsException.getMessage());
