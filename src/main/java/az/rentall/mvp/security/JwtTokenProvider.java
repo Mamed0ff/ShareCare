@@ -62,7 +62,7 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .signWith(generateKey(secretKey))
                 .issuedAt(new Date())
-                .expiration(Date.from(Instant.now().plus(Duration.ofMinutes(10))))
+                .expiration(Date.from(Instant.now().plus(Duration.ofDays(7))))
                 .subject(userDetails.getUsername())
                 .claim("authority",authorities)
                 .compact();

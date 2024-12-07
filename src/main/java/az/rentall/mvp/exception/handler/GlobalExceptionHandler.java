@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     private final TelegramNotificationService telegramNotificationService;
     private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    @ExceptionHandler
+    @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorResponseDto> handleIllegalArgumentException (NullPointerException nullPointerException) {
         log.error("Not found "+nullPointerException.getMessage());
@@ -91,9 +91,11 @@ public class GlobalExceptionHandler {
         return buildExceptionResponse(exception.getMessage(), BAD_REQUEST.value(), "HANDLER_METHOD_VALIDATION_ERROR");
     }
 
-    @ExceptionHandler(UnauthorizedAccesException.class)
+    @ExceptionHandler({UnauthorizedAccessException.class,
+            InvalidTokenException.class,
+            TokenExpiredException.class})
     @ResponseStatus(UNAUTHORIZED)
-    public ErrorResponseDto handleUnauthorizedAccessException(UnauthorizedAccesException exception) {
+    public ErrorResponseDto handleUnauthorizedAccessException(UnauthorizedAccessException exception) {
         log.error("Unauthorized access for argument: "+exception.getMessage());
         return buildExceptionResponse(exception.getMessage(), UNAUTHORIZED.value(), "UNAUTHORIZED");
     }

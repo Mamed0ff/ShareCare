@@ -37,7 +37,7 @@ public class UserController {
 
     @PutMapping("/update")
     public void updateUser (@RequestPart("request") @Valid UserUpdateRequest request,
-                            @RequestPart("image") MultipartFile image){
+                            @RequestPart(value = "image", required = false) MultipartFile image){
         userService.update(request,image);
     }
 

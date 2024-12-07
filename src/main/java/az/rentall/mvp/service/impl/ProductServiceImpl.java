@@ -80,11 +80,15 @@ public class ProductServiceImpl implements ProductService {
             productEntity.setOwner(user);
             productEntity.setId(id);
             productRepository.save(productEntity);
-            List<MultipartFile> nonEmptyImages = images.stream() .
-                    filter(file -> !file.isEmpty()) .collect(Collectors.toList());
-            if (!nonEmptyImages.isEmpty()) {
-                imageService.editImage(nonEmptyImages, id);
+            if (images != null) {
+                List<MultipartFile> nonEmptyImages = images.stream()
+                        .filter(file -> !file.isEmpty())
+                        .collect(Collectors.toList());
+                if (!nonEmptyImages.isEmpty()) {
+                    imageService.editImage(nonEmptyImages, id);
+                }
             }
+
         }
     }
 
