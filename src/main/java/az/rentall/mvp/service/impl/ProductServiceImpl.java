@@ -79,6 +79,7 @@ public class ProductServiceImpl implements ProductService {
             productEntity.setUpdated_at(LocalDateTime.now());
             productEntity.setOwner(user);
             productEntity.setId(id);
+            productEntity.setViewCount(oldEntity.getViewCount());
             productRepository.save(productEntity);
             if (images != null) {
                 List<MultipartFile> nonEmptyImages = images.stream()
