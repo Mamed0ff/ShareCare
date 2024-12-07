@@ -54,14 +54,14 @@ public class AuthServiceImpl implements AuthService {
         user.setExpiryDate(LocalDateTime.now().plusMinutes(5));
         user.setCreated_at(LocalDateTime.now());
         userRepository.save(user);
-        String message = "Dear " + user.getName() + ",\n\n" +
-                "Thank you for registering with us! Please use the following verification code to complete your registration:\n\n" +
-                "Verification Code: " + user.getVerificationCode() + "\n\n" +
-                "Please enter this code on the verification page to activate your account.\n" +
-                "If you did not request this verification code, please ignore this email.\n\n" +
-                "Best regards,\n" +
-                "The ShareCare Team";
-        String subject = "Verification Code";
+        String message = "Hörmətli " + user.getName() + ",\n\n" +
+        "Bizimlə qeydiyyatdan keçdiyiniz üçün təşəkkür edirik! Qeydiyyatınızı tamamlamaq üçün aşağıdakı doğrulama kodunu istifadə edin:\n\n" +
+        "Doğrulama Kodu: " + user.getVerificationCode() + "\n\n" +
+                "Zəhmət olmasa, bu kodu hesabınızı aktivləşdirmək üçün doğrulama səhifəsində daxil edin.\n" +
+                "Əgər bu doğrulama kodunu tələb etməmisinizsə, zəhmət olmasa bu e-poçtu nəzərə almayın.\n\n" +
+                "Ən xoş arzularla,\n" +
+                "ShareCare Komandası";
+        String subject = "Doğrulama Kodu";
         mailService.sendEmail(user.getEmail(),subject, message);
     }
 
@@ -116,13 +116,13 @@ public class AuthServiceImpl implements AuthService {
         UserDetails userDetails= userService.loadUserByUsername(user.getEmail());
         String token = jwtService.generateToken(userDetails);
         String resetLink = "https://sharecare.site/auth/reset-password?token=" + token;
-        String message = "Dear " + user.getName() + ",\n\n" +
-                "We received a request to reset your password for your account. To reset your password, please click the link below:\n\n" +
-                "Reset Password Link: " + resetLink + "\n\n" +
-                "This link will expire in 10 minutes. If you did not request a password reset, please ignore this email or contact our support team.\n\n" +
-                "Best regards,\n" +
-                "The ShareCare Team";
-        String subject = "Password Reset";
+        String message = "Hörmətli " + user.getName() + ",\n\n" +
+                "Bizə hesabınız üçün parol sıfırlama tələbi gəldi. Parolunuzu sıfırlamaq üçün aşağıdakı linkə klikləyin:\n\n" +
+                "Parolu Sıfırlama Linki: " + resetLink + "\n\n" +
+                "Bu link 10 dəqiqə ərzində keçərli olacaq. Əgər parol sıfırlama tələbi etməmisinizsə, zəhmət olmasa bu e-poçtu nəzərə almayın və ya dəstək komandamızla əlaqə saxlayın.\n\n" +
+                "Ən xoş arzularla,\n" +
+                "ShareCare Komandası";
+        String subject = "Parol Sıfırlama";
         mailService.sendEmail(user.getEmail(), subject, message);
     }
 
