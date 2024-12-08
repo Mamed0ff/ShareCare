@@ -21,10 +21,8 @@ public class ProductRequest {
     @NotBlank
     String name;
 
-    @NotBlank
     String description;
 
-    @NotNull
     private Boolean isOld;
 
     @NotBlank

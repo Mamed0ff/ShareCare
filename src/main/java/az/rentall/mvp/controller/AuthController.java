@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:5173","https://sharecare.site", "https://api.sharecare.site","http://157.173.202.16:3000"})
 public class AuthController {
     private final AuthService authService;
 
@@ -45,11 +44,11 @@ public class AuthController {
     @PostMapping("/update-password")
     public ResponseEntity<String> updatePassword(@RequestParam("email") String email) {
         authService.updatePassword(email);
-        return new ResponseEntity<>("Password updated successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Password update request successfully sent.", HttpStatus.OK);
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity<String> resetPassword(@RequestParam("token") String token, @RequestBody ResetPassword resetPassword) {
+    public ResponseEntity<String> resetPassword(@RequestParam("token") String token, @Valid @RequestBody ResetPassword resetPassword) {
         authService.resetPassword(token, resetPassword);
         return new ResponseEntity<>("Password reset successfully", HttpStatus.OK);
     }

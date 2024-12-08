@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -29,7 +30,8 @@ public class AmazonS3Service {
     public String uploadFile(MultipartFile file){
         File fileObj = convertMultipartFileToFile(file);
 
-        String fileName=System.currentTimeMillis()+"_"+file.getOriginalFilename();
+//        String fileName=System.currentTimeMillis()+"_"+file.getOriginalFilename();
+           String fileName=System.currentTimeMillis()+"_"+UUID.randomUUID();
         amazonS3.putObject(new PutObjectRequest(bucketName,fileName,fileObj)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
         boolean delete = fileObj.delete();

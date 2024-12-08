@@ -54,9 +54,15 @@ public class AuthServiceImpl implements AuthService {
         user.setExpiryDate(LocalDateTime.now().plusMinutes(5));
         user.setCreated_at(LocalDateTime.now());
         userRepository.save(user);
-
-        String subject = "Verification Code";
-        mailService.sendEmail(user.getEmail(),subject, user.getVerificationCode());
+        String message = "Hörmətli " + user.getName() + ",\n\n" +
+        "Bizimlə qeydiyyatdan keçdiyiniz üçün təşəkkür edirik! Qeydiyyatınızı tamamlamaq üçün aşağıdakı doğrulama kodunu istifadə edin:\n\n" +
+        "Doğrulama Kodu: " + user.getVerificationCode() + "\n\n" +
+                "Zəhmət olmasa, bu kodu hesabınızı aktivləşdirmək üçün doğrulama səhifəsində daxil edin.\n" +
+                "Əgər bu doğrulama kodunu tələb etməmisinizsə, zəhmət olmasa bu e-poçtu nəzərə almayın.\n\n" +
+                "Ən xoş arzularla,\n" +
+                "ShareCare Komandası";
+        String subject = "Doğrulama Kodu";
+        mailService.sendEmail(user.getEmail(),subject, message);
     }
 
     @Override
@@ -110,8 +116,14 @@ public class AuthServiceImpl implements AuthService {
         UserDetails userDetails= userService.loadUserByUsername(user.getEmail());
         String token = jwtService.generateToken(userDetails);
         String resetLink = "https://sharecare.site/auth/reset-password?token=" + token;
-        String subject = "Password Reset";
-        mailService.sendEmail(user.getEmail(), subject, resetLink);
+        String message = "Hörmətli " + user.getName() + ",\n\n" +
+                "Bizə hesabınız üçün parol sıfırlama tələbi gəldi. Parolunuzu sıfırlamaq üçün aşağıdakı linkə klikləyin:\n\n" +
+                "Parolu Sıfırlama Linki: " + resetLink + "\n\n" +
+                "Bu link 10 dəqiqə ərzində keçərli olacaq. Əgər parol sıfırlama tələbi etməmisinizsə, zəhmət olmasa bu e-poçtu nəzərə almayın və ya dəstək komandamızla əlaqə saxlayın.\n\n" +
+                "Ən xoş arzularla,\n" +
+                "ShareCare Komandası";
+        String subject = "Parol Sıfırlama";
+        mailService.sendEmail(user.getEmail(), subject, message);
     }
 
     @Override

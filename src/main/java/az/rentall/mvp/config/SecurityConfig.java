@@ -48,6 +48,7 @@ public class SecurityConfig {
 
     private static final String[] AUTH_IGNORE_WHITELIST = {
             "/categories/**",
+            "/faqs/**",
             "/users/all",
             "/users/{id}/**",
             "/users/set-role",
@@ -73,6 +74,7 @@ public class SecurityConfig {
                         .requestMatchers(AUTH_WHITELIST).permitAll()
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/faqs/all").permitAll()
                         .requestMatchers(HttpMethod.GET, "/carousel/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
                         .requestMatchers(AUTH_IGNORE_WHITELIST).hasRole("ADMIN")

@@ -52,8 +52,4 @@ public class ProductEntity {
         this.viewCount++;
     }
 
-    @PrePersist
-    protected void autoFill(){
-        this.viewCount=0;
-    }
 }

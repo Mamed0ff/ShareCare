@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
                 throw new AlreadyExistsException("EMAIL_ALREADY_EXISTS");
             }
         }
-        if(!image.isEmpty()){
+        if(image != null && !image.isEmpty()){
             user.setPhotoUrl(amazonS3Service.uploadFile(image));
         }
         user.setUpdated_at(LocalDateTime.now());

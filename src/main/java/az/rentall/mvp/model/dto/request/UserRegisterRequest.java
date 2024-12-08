@@ -34,6 +34,11 @@ public class UserRegisterRequest {
     @NotBlank(message = "Name cannot be blank")
     private String name;
 
+    @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
+    @Pattern(regexp = "^[A-Za-zƏəÖöÜüŞşÇçığ]+$", message = "Name must contain only Azerbaijani letters")
+    @NotBlank(message = "Surname cannot be blank")
+    private String surname;
+
     @Pattern(regexp = "^\\+994\\d{9}$", message = "Phone number must be in the format +994XXXXXXXXX")
     @NotBlank(message = "Phone number cannot be blank")
     private String phoneNumber;

@@ -28,6 +28,7 @@ public class UserUpdateRequest {
     private String name;
 
     private String surname;
+    private String username;
 
     private LocalDate birthDay;
 }

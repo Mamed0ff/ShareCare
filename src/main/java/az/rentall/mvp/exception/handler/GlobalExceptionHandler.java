@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -31,7 +32,7 @@ public class GlobalExceptionHandler {
     private final TelegramNotificationService telegramNotificationService;
     private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    @ExceptionHandler
+    @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorResponseDto> handleIllegalArgumentException (NullPointerException nullPointerException) {
         log.error("Not found "+nullPointerException.getMessage());
@@ -61,6 +62,14 @@ public class GlobalExceptionHandler {
         return buildExceptionResponse(fileUploadException.getMessage(),BAD_REQUEST.value(),"FILE_UPLOAD_ERROR");
     }
 
+    @ExceptionHandler({BadCredentialsException.class,
+            NotVerifiedException.class})
+    @ResponseStatus(BAD_REQUEST)
+    public ErrorResponseDto handleBadCredentialsException (BadCredentialsException badCredentialsException) {
+        log.error("Not found "+badCredentialsException.getMessage());
+        return buildExceptionResponse(badCredentialsException.getMessage(),BAD_REQUEST.value(),"WRONG_CREDENTIALS_ERROR");
+    }
+
     @ExceptionHandler(AlreadyExistsException.class)
     @ResponseStatus(CONFLICT)
     public ErrorResponseDto handleAlreadyExistsException(AlreadyExistsException exception) {
@@ -82,9 +91,11 @@ public class GlobalExceptionHandler {
         return buildExceptionResponse(exception.getMessage(), BAD_REQUEST.value(), "HANDLER_METHOD_VALIDATION_ERROR");
     }
 
-    @ExceptionHandler(UnauthorizedAccesException.class)
+    @ExceptionHandler({UnauthorizedAccessException.class,
+            InvalidTokenException.class,
+            TokenExpiredException.class})
     @ResponseStatus(UNAUTHORIZED)
-    public ErrorResponseDto handleUnauthorizedAccesException(UnauthorizedAccesException exception) {
+    public ErrorResponseDto handleUnauthorizedAccessException(UnauthorizedAccessException exception) {
         log.error("Unauthorized access for argument: "+exception.getMessage());
         return buildExceptionResponse(exception.getMessage(), UNAUTHORIZED.value(), "UNAUTHORIZED");
     }

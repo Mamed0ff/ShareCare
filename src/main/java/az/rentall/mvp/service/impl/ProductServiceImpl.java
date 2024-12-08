@@ -38,16 +38,16 @@ public class ProductServiceImpl implements ProductService {
     private final CategoriesRepository categoriesRepository;
 
     @Override
-    public ProductResponse createProduct(ProductRequest productRequest, List<MultipartFile> images) {
+    public void createProduct(ProductRequest productRequest, List<MultipartFile> images) {
         categoriesRepository.findById(productRequest.getCategoryId()).orElseThrow(()->new NotFoundException("Category is not found with id : "+productRequest.getCategoryId()));
         String email = userService.getCurrentEmail();
         UserEntity user = userRepository.findByEmail(email).orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
         ProductEntity productEntity = productMapper.toEntity(productRequest);
         productEntity.setOwner(user);
+        productEntity.setViewCount(0);
         productEntity.setCreated_at(LocalDateTime.now());
         productRepository.save(productEntity);
         imageService.addImages(images,productEntity.getId());
-        return productMapper.toResponseDto(productEntity);
     }
 
     @Override
@@ -73,14 +73,23 @@ public class ProductServiceImpl implements ProductService {
         String email = userService.getCurrentEmail();
         UserEntity user = userRepository.findByEmail(email).orElseThrow(()->new NotFoundException("USER_NOT_FOUND"));
         ProductEntity oldEntity = productRepository.findById(id).orElseThrow(()->new NotFoundException("Product is not found with id : "+id));
-        ProductEntity productEntity = productMapper.toEntity(productRequest);
-        productEntity.setCreated_at(oldEntity.getCreated_at());
-        productEntity.setUpdated_at(LocalDateTime.now());
-        productEntity.setId(id);
-        productEntity.setOwner(user);
-        productRepository.save(productEntity);
-        if(!images.isEmpty()){
-            imageService.editImage(images,id);
+        if(oldEntity.getOwner().equals(user)) {
+            ProductEntity productEntity = productMapper.toEntity(productRequest);
+            productEntity.setCreated_at(oldEntity.getCreated_at());
+            productEntity.setUpdated_at(LocalDateTime.now());
+            productEntity.setOwner(user);
+            productEntity.setId(id);
+            productEntity.setViewCount(oldEntity.getViewCount());
+            productRepository.save(productEntity);
+            if (images != null) {
+                List<MultipartFile> nonEmptyImages = images.stream()
+                        .filter(file -> !file.isEmpty())
+                        .collect(Collectors.toList());
+                if (!nonEmptyImages.isEmpty()) {
+                    imageService.editImage(nonEmptyImages, id);
+                }
+            }
+
         }
     }
 
